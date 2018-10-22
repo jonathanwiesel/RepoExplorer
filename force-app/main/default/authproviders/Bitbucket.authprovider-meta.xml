@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AuthProvider xmlns="http://soap.sforce.com/2006/04/metadata">
+    <authorizeUrl>https://bitbucket.org/site/oauth2/authorize</authorizeUrl>
+    <consumerKey>CLIENT_ID</consumerKey>
+    <consumerSecret>CLIENT_SECRET</consumerSecret>
+    <friendlyName>Bitbucket</friendlyName>
+    <includeOrgIdInIdentifier>false</includeOrgIdInIdentifier>
+    <providerType>OpenIdConnect</providerType>
+    <sendAccessTokenInHeader>true</sendAccessTokenInHeader>
+    <sendClientCredentialsInHeader>false</sendClientCredentialsInHeader>
+    <tokenUrl>https://bitbucket.org/site/oauth2/access_token</tokenUrl>
+</AuthProvider>

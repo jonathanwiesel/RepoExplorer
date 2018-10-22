@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Github</label>
+    <protected>true</protected>
+    <values>
+        <field>Apex_Class__c</field>
+        <value xsi:type="xsd:string">GithubHostingService</value>
+    </values>
+    <values>
+        <field>Get_Repos_Endpoint__c</field>
+        <value xsi:type="xsd:string">/users/{0}/repos</value>
+    </values>
+    <values>
+        <field>Get_Team_Repos_Endpoint__c</field>
+        <value xsi:type="xsd:string">/orgs/{0}/repos</value>
+    </values>
+    <values>
+        <field>Named_Credential_Name__c</field>
+        <value xsi:type="xsd:string">GithubAPI</value>
+    </values>
+    <values>
+        <field>Page_Parameter__c</field>
+        <value xsi:type="xsd:string">page</value>
+    </values>
+    <values>
+        <field>Page_Size_Parameter__c</field>
+        <value xsi:type="xsd:string">per_page</value>
+    </values>
+</CustomMetadata>
