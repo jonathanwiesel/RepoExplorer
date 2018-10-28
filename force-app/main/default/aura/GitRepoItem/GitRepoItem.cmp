@@ -1,0 +1,11 @@
+<aura:component>
+
+    <aura:attribute name="repo" type="Object" required="true" />
+
+    <li class="slds-item">
+        <lightning:tile>
+            <p class="slds-text-heading_small"><a href="{!v.repo.url}" target="_blank">{!v.repo.name}</a></p>
+            <p class="slds-truncate" title="{!v.repo.slug}">{!v.repo.slug}</p>
+        </lightning:tile>
+    </li>
+</aura:component>	
