@@ -87,3 +87,7 @@ Here you can find some information on how to create an application in the suppor
 `sfdx force:source:push`
 
 * Make your changes and get crazy!
+
+## Issues
+
+* According to the current [Metadata Coverage Report](https://mdcoverage.secure.force.com/docs/metadata-coverage/44), Auth. Providers can be included in Unlocked Packages, but only ones without a namespaces; therefore this package cannot have a namespace for now.
