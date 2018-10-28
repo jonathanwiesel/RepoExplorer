@@ -1,18 +1,20 @@
 global with sharing class GitHostingRouter {
     
     private static final String ENDPOINT_FORMAT = 'callout:{0}{1}';
-    private static final Integer PAGE_SIZE = 20;
     private static Map<String, Git_Hosting_Service__mdt> cachedConfig = new Map<String, Git_Hosting_Service__mdt>();
     
     /**
      * Obtain a list of existing repositories
      * @param  hostingService - Service that hosts the repositories
      * @param  isUser         - determines if the domain is from a user or a team
-     * @param  domain         - user or team that owns the repos
+     * @param  domain        e ex - user or team that owns the repos
      * @param  page           - page of the result set
      */
     @AuraEnabled(cacheable=true)
-    global static GitServiceResponseModel getRepositoriesInDomain(String hostingService, Boolean isUser, String domain, Integer page) {
+    global static GitServiceResponseModel getRepositoriesInDomain(String hostingService, Boolean isUser, String domain, Integer page, Integer pageSize) {
+
+        page = Integer.valueOf(page);
+        pageSize = Integer.valueOf(pageSize);
 
         GitServiceResponseModel responseModel;
 
@@ -28,13 +30,13 @@ global with sharing class GitHostingRouter {
 
             Map<String, String> params = new Map<String, String>{
                 config.Page_Parameter__c => String.valueOf(page),
-                config.Page_Size_Parameter__c => String.valueOf(PAGE_SIZE)
+                config.Page_Size_Parameter__c => String.valueOf(pageSize)
             };
 
             HttpResponse res = CalloutManager.sendRequest(endpoint, 'GET', params, null);
 
             responseModel = res.getStatusCode() == 200 ?
-                            service.parseGetReposRequest(page, PAGE_SIZE, res) :
+                            service.parseGetReposRequest(page, pageSize, res) :
                             service.handleError(res);
 
         } catch (Exception e) {
