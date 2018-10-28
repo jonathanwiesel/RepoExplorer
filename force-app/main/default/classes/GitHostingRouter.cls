@@ -7,7 +7,7 @@ global with sharing class GitHostingRouter {
      * Obtain a list of existing repositories
      * @param  hostingService - Service that hosts the repositories
      * @param  isUser         - determines if the domain is from a user or a team
-     * @param  domain        e ex - user or team that owns the repos
+     * @param  domain         - user or team that owns the repos
      * @param  page           - page of the result set
      */
     @AuraEnabled(cacheable=true)
@@ -20,18 +20,11 @@ global with sharing class GitHostingRouter {
 
         try {
 
-            GitHostingService service = GitHostingRouter.getServiceInstance(hostingService);
-            Git_Hosting_Service__mdt config = GitHostingRouter.getGitHostConfig(hostingService);
+            Git_Hosting_Service__mdt config = GitHostingConfig.getSpecificGitHost(hostingService);
+            GitHostingService service = GitHostingConfig.getServiceInstance(hostingService);
 
-            String endpoint = String.format(ENDPOINT_FORMAT, new String[]{
-                config.Named_Credential_Name__c, 
-                String.format(isUser ? config.Get_Repos_Endpoint__c : config.Get_Team_Repos_Endpoint__c, new String[]{domain})
-            });
-
-            Map<String, String> params = new Map<String, String>{
-                config.Page_Parameter__c => String.valueOf(page),
-                config.Page_Size_Parameter__c => String.valueOf(pageSize)
-            };
+            String endpoint = GitHostingRouter.getFormattedRepoListEndpoint(config, isUser, domain);
+            Map<String, String> params = GitHostingRouter.getPaginationParams(config, page, pageSize);
 
             HttpResponse res = CalloutManager.sendRequest(endpoint, 'GET', params, null);
 
@@ -49,41 +42,31 @@ global with sharing class GitHostingRouter {
     }
 
     /**
-     * Obtain the hosting service apex instance
-     * @param  hostingService - git hosting service name
+     * Obtain a formatted repo list endpoint
+     * @param  config - git hosting configuration object
+     * @param  isUser - determines if the domain is from a user or a team
+     * @param  domain - user or team that owns the repos
      */
-    private static GitHostingService getServiceInstance(String hostingService) {
+    private static String getFormattedRepoListEndpoint(Git_Hosting_Service__mdt config, Boolean isUser, String domain) {
         
-        Git_Hosting_Service__mdt config = GitHostingRouter.getGitHostConfig(hostingService);
-
-        if (config == null) {
-            throw new InvalidServiceException('Hosting service not configured: ' + hostingService);
-        }
-
-        Type t = Type.forName(config.Apex_Class__c);
-        return (GitHostingService)t.newInstance();
+        return String.format(ENDPOINT_FORMAT, new String[]{
+            config.Named_Credential_Name__c, 
+            String.format(isUser ? config.Get_Repos_Endpoint__c : config.Get_Team_Repos_Endpoint__c, new String[]{domain})
+        });
     }
 
 
     /**
-     * Obtain the configured git hostings
-     * @param  hostingService - git hosting service name
+     * Obtain additional parameters to send in the request
+     * @param  config   - git hosting configuration object
+     * @param  page     - page number being requested
+     * @param  pageSize - amount of results per page
      */
-    private static Git_Hosting_Service__mdt getGitHostConfig(String hostingService) {
+    private static Map<String, String> getPaginationParams(Git_Hosting_Service__mdt config, Integer page, Integer pageSize) {
 
-        if (GitHostingRouter.cachedConfig.isEmpty()) {
-            
-            for (Git_Hosting_Service__mdt config : [SELECT MasterLabel, Apex_Class__c, Get_Repos_Endpoint__c, Get_Team_Repos_Endpoint__c, 
-                                                    Named_Credential_Name__c, Page_Parameter__c, Page_Size_Parameter__c 
-                                                    FROM Git_Hosting_Service__mdt]) {
-                
-                GitHostingRouter.cachedConfig.put(config.MasterLabel, config);
-            }
-        }
-
-        return GitHostingRouter.cachedConfig.get(hostingService);
+        return new Map<String, String>{
+            config.Page_Parameter__c => String.valueOf(page),
+            config.Page_Size_Parameter__c => String.valueOf(pageSize)
+        };
     }
-
-
-    private class InvalidServiceException extends Exception {}
 }
