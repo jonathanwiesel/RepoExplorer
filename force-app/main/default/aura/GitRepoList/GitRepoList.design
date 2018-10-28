@@ -1,0 +1,6 @@
+<design:component >
+    <design:attribute name="hostingService" label="Hosting Service" required="true" description="Hosting service where the repositories live" datasource="apex://GitHostingConfig"/>
+    <design:attribute name="owner" label="Owner username" required="true" description="Username of the user or group that own the repositories"/>
+    <design:attribute name="isUser" label="Owner is a User?" default="true" description="Since the owner could be a user or a group / team, specify what the owner is"/>
+    <design:attribute name="pageSize" label="Page Size" default="10" description="Amount of repositories to show per page"/>
+</design:component>

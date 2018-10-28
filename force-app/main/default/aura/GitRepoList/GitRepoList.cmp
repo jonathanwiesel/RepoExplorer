@@ -1,0 +1,56 @@
+<aura:component implements="flexipage:availableForAllPageTypes" controller="GitHostingRouter" access="global">
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <aura:attribute name="hostingService" type="String" required="true" access="global"/>
+    <aura:attribute name="owner" type="String" required="true" access="global"/>
+    <aura:attribute name="isUser" type="Boolean" default="true" access="global"/>
+    <aura:attribute name="pageSize" type="Integer" default="10" access="global" />
+    
+    <aura:attribute name="page" type="Integer" default="1" access="private" />
+    <aura:attribute name="hasPrevious" type="Boolean" default="false" access="private" />
+    <aura:attribute name="hasNext" type="Boolean" default="false" access="private" />
+    <aura:attribute name="repos" type="Object[]" default="[]" access="private" />
+    <aura:attribute name="working" type="Boolean" default="false" access="private" />
+    
+    <div class="slds-box">
+
+        <div class="slds-text-title_caps">
+            {!v.owner} repositories on {!v.hostingService}
+        </div>
+
+        <div class="slds-m-bottom_small"></div>
+
+        <div class="slds-is-relative inner-box">
+
+            <c:AlertLib aura:id="alertLib"/>
+
+            <div aura:id="loadingSpinner" class="slds-hide loadingSpinner">
+                <lightning:spinner size="medium" />
+            </div>
+
+            <ul class="slds-has-dividers_bottom-space repoList">
+                <aura:iteration items="{!v.repos}" var="gitRepo">
+                    <c:GitRepoItem repo="{!gitRepo}" />
+                </aura:iteration>
+            </ul>
+
+            <aura:if isTrue="{!not(empty(v.repos))}">
+                <div class="slds-m-top_medium"></div>
+
+                <lightning:layout horizontalAlign="spread">
+                    <lightning:layoutItem>
+                        Page {!v.page}
+                    </lightning:layoutItem>
+                    <lightning:layoutItem>
+                        <lightning:buttonGroup>
+                            <lightning:button label="Previous" disabled="{!!v.hasPrevious || v.working}" onclick="{!c.previousPage}"/>
+                            <lightning:button label="Next" disabled="{!!v.hasNext || v.working}" onclick="{!c.nextPage}"/>
+                        </lightning:buttonGroup>
+                    </lightning:layoutItem>
+                </lightning:layout>
+            </aura:if>
+        </div>
+    
+    </div>
+</aura:component>	
