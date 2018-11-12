@@ -3,7 +3,7 @@
     <authorizeUrl>https://gitlab.com/oauth/authorize</authorizeUrl>
     <consumerKey>CLIENT_ID</consumerKey>
     <consumerSecret>CLIENT_SECRET</consumerSecret>
-    <friendlyName>GitlabCloud</friendlyName>
+    <friendlyName>Gitlab</friendlyName>
     <includeOrgIdInIdentifier>false</includeOrgIdInIdentifier>
     <providerType>OpenIdConnect</providerType>
     <sendAccessTokenInHeader>true</sendAccessTokenInHeader>
