@@ -1,0 +1,98 @@
+{
+    "pagelen": 10,
+    "size": 1,
+    "values": [
+        {
+            "scm": "git",
+            "website": "",
+            "has_wiki": false,
+            "name": "RepoExplorer",
+            "links": {
+                "watchers": {
+                    "href": "https://api.bitbucket.org/2.0/repositories/jonathanwiesel/repoexplorer/watchers"
+                },
+                "branches": {
+                    "href": "https://api.bitbucket.org/2.0/repositories/jonathanwiesel/repoexplorero/refs/branches"
+                },
+                "tags": {
+                    "href": "https://api.bitbucket.org/2.0/repositories/jonathanwiesel/repoexplorer/refs/tags"
+                },
+                "commits": {
+                    "href": "https://api.bitbucket.org/2.0/repositories/jonathanwiesel/repoexplorer/commits"
+                },
+                "clone": [
+                    {
+                        "href": "https://jonathanwiesel@bitbucket.org/jonathanwiesel/repoexplorer.git",
+                        "name": "https"
+                    },
+                    {
+                        "href": "git@bitbucket.org:jonathanwiesel/repoexplorer.git",
+                        "name": "ssh"
+                    }
+                ],
+                "self": {
+                    "href": "https://api.bitbucket.org/2.0/repositories/jonathanwiesel/repoexplorer"
+                },
+                "source": {
+                    "href": "https://api.bitbucket.org/2.0/repositories/jonathanwiesel/repoexplorer/src"
+                },
+                "html": {
+                    "href": "https://bitbucket.org/jonathanwiesel/repoexplorer"
+                },
+                "avatar": {
+                    "href": "https://bytebucket.org/ravatar/%7Bd433b42d-3d8e-410c-97db-d5430c5d8e22%7D?ts=java"
+                },
+                "hooks": {
+                    "href": "https://api.bitbucket.org/2.0/repositories/jonathanwiesel/repoexplorer/hooks"
+                },
+                "forks": {
+                    "href": "https://api.bitbucket.org/2.0/repositories/jonathanwiesel/repoexplorer/forks"
+                },
+                "downloads": {
+                    "href": "https://api.bitbucket.org/2.0/repositories/jonathanwiesel/repoexplorer/downloads"
+                },
+                "issues": {
+                    "href": "https://api.bitbucket.org/2.0/repositories/jonathanwiesel/repoexplorer/issues"
+                },
+                "pullrequests": {
+                    "href": "https://api.bitbucket.org/2.0/repositories/jonathanwiesel/repoexplorer/pullrequests"
+                }
+            },
+            "fork_policy": "no_public_forks",
+            "uuid": "{d433b42d-3d8e-410c-97db-d5430c5d8e22}",
+            "language": "java",
+            "created_on": "2014-02-19T10:43:25.270374+00:00",
+            "mainbranch": {
+                "type": "branch",
+                "name": "master"
+            },
+            "full_name": "jonathanwiesel/repoexplorer",
+            "has_issues": true,
+            "owner": {
+                "username": "jonathanwiesel",
+                "display_name": "jonathanwiesel",
+                "account_id": "557058:26bcdbed-4e89-48f8-8520-bca2478316ac",
+                "links": {
+                    "self": {
+                        "href": "https://api.bitbucket.org/2.0/users/jonathanwiesel"
+                    },
+                    "html": {
+                        "href": "https://bitbucket.org/jonathanwiesel/"
+                    },
+                    "avatar": {
+                        "href": "https://bitbucket.org/account/jonathanwiesel/avatar/"
+                    }
+                },
+                "nickname": "jonathanwiesel",
+                "type": "user",
+                "uuid": "{2584ddc2-a1d9-4388-8a68-eae037140934}"
+            },
+            "updated_on": "2015-11-23T00:18:09.356471+00:00",
+            "size": 13268523,
+            "type": "repository",
+            "slug": "repoexplorer",
+            "is_private": true,
+            "description": ""
+        }
+    ]
+}
