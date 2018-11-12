@@ -23,5 +23,6 @@ global with sharing class GitServiceResponseModel {
 
     public GitServiceResponseModel(String error) {
         this.error = error;
+        this.data = new Object[]{};
     }
 }

@@ -77,5 +77,5 @@ global with sharing class GitHostingConfig extends VisualEditor.DynamicPickList 
     }
 
 
-    private class InvalidServiceException extends Exception {}
+    public class InvalidServiceException extends Exception {}
 }
