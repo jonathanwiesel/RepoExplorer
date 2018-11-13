@@ -1,5 +1,7 @@
 global inherited sharing class CalloutManager {
     
+    private static final String ENDPOINT_FORMAT = 'callout:{0}{1}';
+
     /**
      * Build and send an http request based on the specified params
      * @param  endpoint    - endpoint to hit
@@ -52,5 +54,15 @@ global inherited sharing class CalloutManager {
                 req.setHeader(key, headers.get(key));
             }
         }
+    }
+
+    /**
+     * Create formatted endpoint based on a named credentials
+     * @param  namedCredential - named credential name
+     * @param  endpoint        - partial endpoint
+     */
+    public static String getFormattedEndpoint(String namedCredential, String endpoint) {
+
+        return String.format(ENDPOINT_FORMAT, new String[]{namedCredential, endpoint});
     }
 }
