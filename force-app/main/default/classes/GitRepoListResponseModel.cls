@@ -1,4 +1,4 @@
-global with sharing class GitServiceResponseModel {
+global with sharing class GitRepoListResponseModel {
     
     @AuraEnabled
     public Integer pageSize;
@@ -9,20 +9,20 @@ global with sharing class GitServiceResponseModel {
     @AuraEnabled
     public Boolean hasNextPage;
     @AuraEnabled
-    public Object[] data;
+    public GitRepoModel[] repos;
     @AuraEnabled
     public String error;
     
-    public GitServiceResponseModel(Integer pageSize, Integer currentPage, Boolean hasNextPage, Object[] data) {
+    public GitRepoListResponseModel(Integer pageSize, Integer currentPage, Boolean hasNextPage, GitRepoModel[] data) {
         this.pageSize = pageSize;
         this.currentPage = currentPage;
         this.hasPrevPage = this.currentPage > 1;
         this.hasNextPage = hasNextPage;
-        this.data = data;
+        this.repos = data;
     }
 
-    public GitServiceResponseModel(String error) {
+    public GitRepoListResponseModel(String error) {
         this.error = error;
-        this.data = new Object[]{};
+        this.repos = new GitRepoModel[]{};
     }
 }

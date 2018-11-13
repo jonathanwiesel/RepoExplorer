@@ -6,11 +6,11 @@ global abstract with sharing class GitHostingService {
      * @param  pageSize - page size configured
      * @param  res      - response object
      */
-    global abstract GitServiceResponseModel parseGetReposRequest(Integer page, Integer pageSize, HTTPResponse res);
+    global abstract GitRepoListResponseModel parseGetReposRequest(Integer page, Integer pageSize, HTTPResponse res);
 
     /**
      * Handle errors with the API
      * @param  res - response object
      */
-    global abstract GitServiceResponseModel handleError(HttpResponse res);
+    global abstract String handleError(HttpResponse res);
 }

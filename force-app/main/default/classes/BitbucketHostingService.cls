@@ -1,6 +1,6 @@
 global with sharing class BitbucketHostingService extends GitHostingService {
     
-    global override GitServiceResponseModel parseGetReposRequest(Integer page, Integer pageSize, HTTPResponse res) {
+    global override GitRepoListResponseModel parseGetReposRequest(Integer page, Integer pageSize, HTTPResponse res) {
 
         RepoListModel model = (RepoListModel)JSON.deserialize(res.getBody(), RepoListModel.class);
 
@@ -16,15 +16,15 @@ global with sharing class BitbucketHostingService extends GitHostingService {
             ));
         }
 
-        return new GitServiceResponseModel(pageSize, page, model.next != null, data);
+        return new GitRepoListResponseModel(pageSize, page, model.next != null, data);
     }
 
 
-    global override GitServiceResponseModel handleError(HTTPResponse res) {
+    global override String handleError(HTTPResponse res) {
 
         ErrorModel model = (ErrorModel)JSON.deserialize(res.getBody(), ErrorModel.class);
 
-        return new GitServiceResponseModel(model.error.message);
+        return model.error.message;
     }
 
 

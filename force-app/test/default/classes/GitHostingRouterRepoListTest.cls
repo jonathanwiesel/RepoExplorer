@@ -1,13 +1,12 @@
 @isTest
 private class GitHostingRouterRepoListTest {
     
-    private static void checkSuccessRepoResults(GitServiceResponseModel res) {
+    private static void checkSuccessRepoResults(GitRepoListResponseModel res) {
 
         System.assertEquals(null, res.error);
-        System.assertNotEquals(0, res.data.size());
-        System.assert(res.data[0] instanceof GitRepoModel);
+        System.assertNotEquals(0, res.repos.size());
 
-        GitRepoModel repo = (GitRepoModel)res.data[0];
+        GitRepoModel repo = res.repos[0];
         System.assertNotEquals(null, repo.name);
         System.assertNotEquals(null, repo.slug);
         System.assertNotEquals(null, repo.owner);
@@ -24,9 +23,9 @@ private class GitHostingRouterRepoListTest {
         
         Test.setMock(HttpCalloutMock.class, mock);
 
-        GitServiceResponseModel res;
+        GitRepoListResponseModel res;
         Test.startTest();
-            res = GitHostingRouter.getRepositoriesInDomain('Github', true, 'test', 1, 20);
+            res = GitHostingRepoListRouter.getRepositoriesInDomain('Github', true, 'test', 1, 20);
         Test.stopTest();
 
         GitHostingRouterRepoListTest.checkSuccessRepoResults(res);
@@ -42,13 +41,13 @@ private class GitHostingRouterRepoListTest {
         
         Test.setMock(HttpCalloutMock.class, mock);
 
-        GitServiceResponseModel res;
+        GitRepoListResponseModel res;
         Test.startTest();
-            res = GitHostingRouter.getRepositoriesInDomain('Github', true, 'test', 1, 20);
+            res = GitHostingRepoListRouter.getRepositoriesInDomain('Github', true, 'test', 1, 20);
         Test.stopTest();
 
         System.assertNotEquals(null, res.error);
-        System.assertEquals(0, res.data.size());
+        System.assertEquals(0, res.repos.size());
     }
 
 
@@ -61,9 +60,9 @@ private class GitHostingRouterRepoListTest {
         
         Test.setMock(HttpCalloutMock.class, mock);
 
-        GitServiceResponseModel res;
+        GitRepoListResponseModel res;
         Test.startTest();
-            res = GitHostingRouter.getRepositoriesInDomain('Bitbucket', true, 'test', 1, 20);
+            res = GitHostingRepoListRouter.getRepositoriesInDomain('Bitbucket', true, 'test', 1, 20);
         Test.stopTest();
 
         GitHostingRouterRepoListTest.checkSuccessRepoResults(res);
@@ -78,13 +77,13 @@ private class GitHostingRouterRepoListTest {
         
         Test.setMock(HttpCalloutMock.class, mock);
 
-        GitServiceResponseModel res;
+        GitRepoListResponseModel res;
         Test.startTest();
-            res = GitHostingRouter.getRepositoriesInDomain('Bitbucket', true, 'test', 1, 20);
+            res = GitHostingRepoListRouter.getRepositoriesInDomain('Bitbucket', true, 'test', 1, 20);
         Test.stopTest();
 
         System.assertNotEquals(null, res.error);
-        System.assertEquals(0, res.data.size());
+        System.assertEquals(0, res.repos.size());
     }
 
     @isTest static void testGitlabRepoList() {
@@ -96,9 +95,9 @@ private class GitHostingRouterRepoListTest {
         
         Test.setMock(HttpCalloutMock.class, mock);
 
-        GitServiceResponseModel res;
+        GitRepoListResponseModel res;
         Test.startTest();
-            res = GitHostingRouter.getRepositoriesInDomain('Gitlab', true, 'test', 1, 20);
+            res = GitHostingRepoListRouter.getRepositoriesInDomain('Gitlab', true, 'test', 1, 20);
         Test.stopTest();
 
         GitHostingRouterRepoListTest.checkSuccessRepoResults(res);
@@ -113,25 +112,25 @@ private class GitHostingRouterRepoListTest {
         
         Test.setMock(HttpCalloutMock.class, mock);
 
-        GitServiceResponseModel res;
+        GitRepoListResponseModel res;
         Test.startTest();
-            res = GitHostingRouter.getRepositoriesInDomain('Gitlab', true, 'test', 1, 20);
+            res = GitHostingRepoListRouter.getRepositoriesInDomain('Gitlab', true, 'test', 1, 20);
         Test.stopTest();
 
         System.assertNotEquals(null, res.error);
-        System.assertEquals(0, res.data.size());
+        System.assertEquals(0, res.repos.size());
     }
 
 
     @isTest static void testInvalidServiceResponse() {
 
-        GitServiceResponseModel res;
+        GitRepoListResponseModel res;
         Test.startTest();
-            res = GitHostingRouter.getRepositoriesInDomain('Github', true, 'test', 1, 20);
+            res = GitHostingRepoListRouter.getRepositoriesInDomain('Github', true, 'test', 1, 20);
         Test.stopTest();
 
         System.assertNotEquals(null, res.error);
-        System.assertEquals(0, res.data.size());
+        System.assertEquals(0, res.repos.size());
     }
 
 }

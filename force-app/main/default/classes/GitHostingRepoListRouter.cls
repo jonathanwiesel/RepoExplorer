@@ -8,12 +8,12 @@ global with sharing class GitHostingRepoListRouter {
      * @param  page           - page of the result set
      */
     @AuraEnabled(cacheable=true)
-    global static GitServiceResponseModel getRepositoriesInDomain(String hostingService, Boolean isUser, String domain, Integer page, Integer pageSize) {
+    global static GitRepoListResponseModel getRepositoriesInDomain(String hostingService, Boolean isUser, String domain, Integer page, Integer pageSize) {
 
         page = Integer.valueOf(page);
         pageSize = Integer.valueOf(pageSize);
 
-        GitServiceResponseModel responseModel;
+        GitRepoListResponseModel responseModel;
 
         try {
 
@@ -27,12 +27,12 @@ global with sharing class GitHostingRepoListRouter {
 
             responseModel = res.getStatusCode() == 200 ?
                             service.parseGetReposRequest(page, pageSize, res) :
-                            service.handleError(res);
+                            new GitRepoListResponseModel(service.handleError(res));
 
         } catch (Exception e) {
 
             System.debug(e.getStackTraceString());
-            responseModel = new GitServiceResponseModel(e.getMessage());
+            responseModel = new GitRepoListResponseModel(e.getMessage());
         }
 
         return responseModel;

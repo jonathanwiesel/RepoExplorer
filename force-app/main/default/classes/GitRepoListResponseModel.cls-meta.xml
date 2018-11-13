@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ApexClass xmlns="urn:metadata.tooling.soap.sforce.com" fqn="GitServiceResponseModel">
+<ApexClass xmlns="urn:metadata.tooling.soap.sforce.com" fqn="GitRepoListResponseModel">
     <apiVersion>43.0</apiVersion>
     <status>Active</status>
 </ApexClass>

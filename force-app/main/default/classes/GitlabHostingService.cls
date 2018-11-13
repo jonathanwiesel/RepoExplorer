@@ -4,7 +4,7 @@ global with sharing class GitlabHostingService extends GitHostingService {
     private static final String NEXT_PAGE_LINK_IDENTIFIER = 'rel="next"';
     private static final String PUBLIC_VISIBILITY = 'public';
 
-    global override GitServiceResponseModel parseGetReposRequest(Integer page, Integer pageSize, HTTPResponse res) {
+    global override GitRepoListResponseModel parseGetReposRequest(Integer page, Integer pageSize, HTTPResponse res) {
 
         RepoModel[] models = (RepoModel[])JSON.deserialize(res.getBody(), RepoModel[].class);
 
@@ -23,15 +23,15 @@ global with sharing class GitlabHostingService extends GitHostingService {
         String links = res.getHeader(LINKS_HEADER_NAME);
         Boolean hasNextPage = String.isNotBlank(links) && links.contains(NEXT_PAGE_LINK_IDENTIFIER);
 
-        return new GitServiceResponseModel(pageSize, page, hasNextPage, data);
+        return new GitRepoListResponseModel(pageSize, page, hasNextPage, data);
     }
 
 
-    global override GitServiceResponseModel handleError(HTTPResponse res) {
+    global override String handleError(HTTPResponse res) {
 
         ErrorModel model = (ErrorModel)JSON.deserialize(res.getBody(), ErrorModel.class);
 
-        return new GitServiceResponseModel(String.isNotBlank(model.message) ? model.message : model.error);
+        return String.isNotBlank(model.message) ? model.message : model.error;
     }
 
 

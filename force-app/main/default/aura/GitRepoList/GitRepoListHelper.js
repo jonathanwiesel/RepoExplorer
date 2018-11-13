@@ -29,7 +29,7 @@
 
                 component.set('v.hasPrevious', res.hasPrevPage);
                 component.set('v.hasNext', res.hasNextPage);
-                component.set('v.repos', res.data);
+                component.set('v.repos', res.repos);
 
             } else if (state === "ERROR") {
 
