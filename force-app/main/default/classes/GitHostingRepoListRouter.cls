@@ -1,8 +1,5 @@
-global with sharing class GitHostingRouter {
-    
-    private static final String ENDPOINT_FORMAT = 'callout:{0}{1}';
-    private static Map<String, Git_Hosting_Service__mdt> cachedConfig = new Map<String, Git_Hosting_Service__mdt>();
-    
+global with sharing class GitHostingRepoListRouter {
+        
     /**
      * Obtain a list of existing repositories
      * @param  hostingService - Service that hosts the repositories
@@ -23,8 +20,8 @@ global with sharing class GitHostingRouter {
             Git_Hosting_Service__mdt config = GitHostingConfig.getSpecificGitHost(hostingService);
             GitHostingService service = GitHostingConfig.getServiceInstance(hostingService);
 
-            String endpoint = GitHostingRouter.getFormattedRepoListEndpoint(config, isUser, domain);
-            Map<String, String> params = GitHostingRouter.getPaginationParams(config, page, pageSize);
+            String endpoint = GitHostingRepoListRouter.getFormattedRepoListEndpoint(config, isUser, domain);
+            Map<String, String> params = GitHostingRepoListRouter.getPaginationParams(config, page, pageSize);
 
             HttpResponse res = CalloutManager.sendRequest(endpoint, 'GET', params, null);
 
@@ -49,10 +46,10 @@ global with sharing class GitHostingRouter {
      */
     private static String getFormattedRepoListEndpoint(Git_Hosting_Service__mdt config, Boolean isUser, String domain) {
         
-        return String.format(ENDPOINT_FORMAT, new String[]{
+        return CalloutManager.getFormattedEndpoint(
             config.Named_Credential_Name__c, 
             String.format(isUser ? config.Get_Repos_Endpoint__c : config.Get_Team_Repos_Endpoint__c, new String[]{domain})
-        });
+        );
     }
 
 
