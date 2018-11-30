@@ -7,6 +7,10 @@
         <value xsi:type="xsd:string">BitbucketHostingService</value>
     </values>
     <values>
+        <field>Get_File_Tree_Endpoint__c</field>
+        <value xsi:type="xsd:string">/repositories/{0}/{1}/src/{3}/{2}</value>
+    </values>
+    <values>
         <field>Get_Repos_Endpoint__c</field>
         <value xsi:type="xsd:string">/repositories/{0}</value>
     </values>

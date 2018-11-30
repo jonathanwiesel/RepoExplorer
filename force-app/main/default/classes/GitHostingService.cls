@@ -9,6 +9,12 @@ global abstract with sharing class GitHostingService {
     global abstract GitRepoListResponseModel parseGetReposRequest(Integer page, Integer pageSize, HTTPResponse res);
 
     /**
+     * Parse a success file tree fetching request response
+     * @param  res - esponse object
+     */
+    global abstract GitRepoTreeResponseModel parseGetFileTreeRequest(HTTPResponse res);
+
+    /**
      * Handle errors with the API
      * @param  res - response object
      */

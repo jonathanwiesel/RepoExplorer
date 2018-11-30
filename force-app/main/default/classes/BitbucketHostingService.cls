@@ -12,11 +12,30 @@ global with sharing class BitbucketHostingService extends GitHostingService {
                 repo.full_name,
                 repo.owner.display_name,
                 repo.is_private,
-                repo.links.html.href
+                repo.links.html.href,
+                repo.mainbranch.name
             ));
         }
 
         return new GitRepoListResponseModel(pageSize, page, model.next != null, data);
+    }
+
+
+    global override GitRepoTreeResponseModel parseGetFileTreeRequest(HTTPResponse res) {
+        
+        FileListModel[] models = (FileListModel[])JSON.deserialize(res.getBody(), FileListModel[].class);
+
+        GitFileModel[] data = new GitFileModel[]{};
+
+        for (FileListModel file : models.values) {
+            data.add(new GitFileModel(
+                file.getName(),
+                file.path,
+                file.getFileType()
+            ));
+        }
+
+        return new GitRepoTreeResponseModel(data);
     }
 
 
@@ -59,6 +78,7 @@ global with sharing class BitbucketHostingService extends GitHostingService {
         String description;
         OwnerModel owner;
         WrapperLinkModel links;
+        BrachModel mainbranch;
     }
 
 
@@ -90,5 +110,50 @@ global with sharing class BitbucketHostingService extends GitHostingService {
     private class ErrorMessageModel {
 
         String message;
+    }
+
+
+    private class BrachModel {
+
+        String type;
+        String name;
+    }
+
+
+    private class FileListModel extends GeneralResponseModel {
+
+        FileModel[] values;   
+    }
+
+
+    private class FileModel {
+
+        String path;
+        String type;
+
+        public String getName() {
+            
+            String pathParts = this.path.split('/');
+
+            return pathParts[pathParts.size() - 1];
+        }
+
+        public GitFileModel.FileType getFileType() {
+
+            switch on this.path {
+
+                when 'commit_file' {
+                    return GitFileModel.FileType.FILE;
+                }
+
+                when 'commit_directory' {
+                    return GitFileModel.FileType.DIRECTORY;
+                }
+
+                when else {
+                    return GitFileModel.FileType.OTHER;
+                }
+            }
+        }
     }
 }
