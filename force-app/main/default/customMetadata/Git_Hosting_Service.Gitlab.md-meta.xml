@@ -7,6 +7,10 @@
         <value xsi:type="xsd:string">GitlabHostingService</value>
     </values>
     <values>
+        <field>Get_File_Tree_Endpoint__c</field>
+        <value xsi:type="xsd:string">/projects/{0}%2F{1}/repository/tree?path={2}&amp;ref={3}</value>
+    </values>
+    <values>
         <field>Get_Repos_Endpoint__c</field>
         <value xsi:type="xsd:string">/users/{0}/projects</value>
     </values>

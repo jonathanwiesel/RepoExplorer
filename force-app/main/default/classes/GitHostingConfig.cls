@@ -39,7 +39,8 @@ global with sharing class GitHostingConfig extends VisualEditor.DynamicPickList 
 
         if (GitHostingConfig.cachedConfig.isEmpty()) {
             
-            for (Git_Hosting_Service__mdt config : [SELECT MasterLabel, Apex_Class__c, Get_Repos_Endpoint__c, Get_Team_Repos_Endpoint__c, 
+            for (Git_Hosting_Service__mdt config : [SELECT MasterLabel, Apex_Class__c, Get_Repos_Endpoint__c, Get_Team_Repos_Endpoint__c,
+                                                    Get_File_Tree_Endpoint__c, 
                                                     Named_Credential_Name__c, Page_Parameter__c, Page_Size_Parameter__c 
                                                     FROM Git_Hosting_Service__mdt]) {
                 

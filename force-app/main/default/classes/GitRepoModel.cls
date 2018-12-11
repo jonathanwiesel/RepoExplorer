@@ -10,12 +10,15 @@ global with sharing class GitRepoModel {
     public Boolean isPrivate;
     @AuraEnabled
     public String url;
+    @AuraEnabled
+    public String mainBranch;
 
-    public GitRepoModel(String name, String slug, String owner, Boolean isPrivate, String url) {
+    public GitRepoModel(String name, String slug, String owner, Boolean isPrivate, String url, String mainBranch) {
         this.name = name;
         this.slug = slug;
         this.owner = owner;
         this.isPrivate = isPrivate;
         this.url = url;
+        this.mainBranch = mainBranch;
     }
 }

@@ -19,7 +19,8 @@ global with sharing class GithubHostingService extends GitHostingService {
                 repo.full_name,
                 repo.owner.login,
                 repo.privateX,
-                repo.html_url
+                repo.html_url,
+                repo.default_branch
             ));
         }
         
@@ -27,6 +28,23 @@ global with sharing class GithubHostingService extends GitHostingService {
         Boolean hasNextPage = String.isNotBlank(links) && links.contains(NEXT_PAGE_LINK_IDENTIFIER);
 
         return new GitRepoListResponseModel(pageSize, page, hasNextPage, data);
+    }
+
+    global override GitRepoTreeResponseModel parseGetFileTreeRequest(HTTPResponse res) {
+        
+        FileModel[] models = (FileModel[])JSON.deserialize(res.getBody(), FileModel[].class);
+
+        GitFileModel[] data = new GitFileModel[]{};
+
+        for (FileModel file : models) {
+            data.add(new GitFileModel(
+                file.name,
+                file.path,
+                file.getFileType()
+            ));
+        }
+        
+        return new GitRepoTreeResponseModel(data);
     }
 
 
@@ -54,6 +72,7 @@ global with sharing class GithubHostingService extends GitHostingService {
         String description;
         String html_url;
         OwnerModel owner;
+        String default_branch;
     }
 
     private class OwnerModel {
@@ -66,5 +85,32 @@ global with sharing class GithubHostingService extends GitHostingService {
     private class ErrorModel {
 
         String message;
+    }
+
+
+    private class FileModel {
+
+        String type;
+        String name;
+        String path;
+        String sha;
+
+        public GitFileModel.FileType getFileType() {
+
+            switch on this.type {
+
+                when 'file' {
+                    return GitFileModel.FileType.FILE;
+                }
+
+                when 'dir' {
+                    return GitFileModel.FileType.DIRECTORY;
+                }
+
+                when else {
+                    return GitFileModel.FileType.OTHER;
+                }
+            }
+        }
     }
 }

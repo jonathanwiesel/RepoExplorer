@@ -7,6 +7,10 @@
         <value xsi:type="xsd:string">GithubHostingService</value>
     </values>
     <values>
+        <field>Get_File_Tree_Endpoint__c</field>
+        <value xsi:type="xsd:string">/repos/{0}/{1}/contents/{2}?ref={3}</value>
+    </values>
+    <values>
         <field>Get_Repos_Endpoint__c</field>
         <value xsi:type="xsd:string">/users/{0}/repos</value>
     </values>

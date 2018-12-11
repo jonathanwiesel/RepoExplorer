@@ -16,7 +16,8 @@ global with sharing class GitlabHostingService extends GitHostingService {
                 repo.path_with_namespace,
                 repo.owner != null ? repo.owner.name : repo.namespace.name,
                 repo.visibility != PUBLIC_VISIBILITY,
-                repo.web_url
+                repo.web_url,
+                repo.default_branch
             ));
         }
 
@@ -24,6 +25,24 @@ global with sharing class GitlabHostingService extends GitHostingService {
         Boolean hasNextPage = String.isNotBlank(links) && links.contains(NEXT_PAGE_LINK_IDENTIFIER);
 
         return new GitRepoListResponseModel(pageSize, page, hasNextPage, data);
+    }
+
+
+    global override GitRepoTreeResponseModel parseGetFileTreeRequest(HTTPResponse res) {
+        
+        FileModel[] models = (FileModel[])JSON.deserialize(res.getBody(), FileModel[].class);
+
+        GitFileModel[] data = new GitFileModel[]{};
+
+        for (FileModel file : models) {
+            data.add(new GitFileModel(
+                file.name,
+                file.path,
+                file.getFileType()
+            ));
+        }
+        
+        return new GitRepoTreeResponseModel(data);
     }
 
 
@@ -52,6 +71,7 @@ global with sharing class GitlabHostingService extends GitHostingService {
         String description;
         OwnerModel owner;
         NamespaceModel namespace;
+        String default_branch;
     }
 
 
@@ -75,5 +95,32 @@ global with sharing class GitlabHostingService extends GitHostingService {
 
         String error;
         String message;
+    }
+
+
+    private class FileModel {
+
+        String id;
+        String name;
+        String type;
+        String path;
+    
+        public GitFileModel.FileType getFileType() {
+
+            switch on this.type {
+
+                when 'blob' {
+                    return GitFileModel.FileType.FILE;
+                }
+
+                when 'tree' {
+                    return GitFileModel.FileType.DIRECTORY;
+                }
+
+                when else {
+                    return GitFileModel.FileType.OTHER;
+                }
+            }
+        }
     }
 }

@@ -5,6 +5,7 @@
     <columns>Named_Credential_Name__c</columns>
     <columns>Apex_Class__c</columns>
     <columns>Get_Repos_Endpoint__c</columns>
+    <columns>Get_File_Tree_Endpoint__c</columns>
     <filterScope>Everything</filterScope>
     <label>All Complete</label>
 </ListView>
