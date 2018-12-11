@@ -97,7 +97,7 @@ global with sharing class GithubHostingService extends GitHostingService {
 
         public GitFileModel.FileType getFileType() {
 
-            switch on this.path {
+            switch on this.type {
 
                 when 'file' {
                     return GitFileModel.FileType.FILE;

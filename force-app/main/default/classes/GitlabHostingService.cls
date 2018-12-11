@@ -107,7 +107,7 @@ global with sharing class GitlabHostingService extends GitHostingService {
     
         public GitFileModel.FileType getFileType() {
 
-            switch on this.path {
+            switch on this.type {
 
                 when 'blob' {
                     return GitFileModel.FileType.FILE;
