@@ -2,7 +2,7 @@
 <AuthProvider xmlns="http://soap.sforce.com/2006/04/metadata">
     <authorizeUrl>https://gitlab.com/oauth/authorize</authorizeUrl>
     <consumerKey>CLIENT_ID</consumerKey>
-    <consumerSecret>CLIENT_SECRET</consumerSecret>
+    <consumerSecret>LhiPIimlZnlkmfDfvFKAeQ==</consumerSecret>
     <friendlyName>Gitlab</friendlyName>
     <includeOrgIdInIdentifier>false</includeOrgIdInIdentifier>
     <providerType>OpenIdConnect</providerType>
