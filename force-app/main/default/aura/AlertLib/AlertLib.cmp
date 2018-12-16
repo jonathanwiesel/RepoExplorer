@@ -12,7 +12,7 @@
         <aura:attribute name="message" type="String" required="true"/> 
     </aura:method>
 
-    <aura:method name="dismissAlert" action="{!c.toggleComponent}" access="global" />
+    <aura:method name="dismissAlert" action="{!c.dismiss}" access="global" />
 
     <aura:attribute name="msg" type="String" access="private"/>
     <aura:attribute name="variant" type="String" access="private" />
@@ -20,7 +20,7 @@
     <div aura:id="notifier" class="slds-notify slds-notify_alert slds-theme_alert-texture slds-hide" role="alert">
         <h2>{!v.msg}</h2>
         <div class="slds-notify__close">
-            <lightning:buttonIcon iconName="utility:close" variant="bare-inverse" onclick="{!c.toggleComponent}"/>
+            <lightning:buttonIcon iconName="utility:close" variant="bare-inverse" onclick="{!c.dismiss}"/>
         </div>
     </div>
 

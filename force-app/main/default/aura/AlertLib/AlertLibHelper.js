@@ -1,11 +1,16 @@
 ({
-    toggleVisible : function(component) {
+    toggleVisible : function(component, visible) {
 
         var notifier = component.find('notifier');
         var variant = component.get('v.variant');
 
-        $A.util.toggleClass(notifier, 'slds-hide');
-        $A.util.toggleClass(notifier, variant);
+        if (visible) {
+            $A.util.removeClass(notifier, 'slds-hide');
+            $A.util.addClass(notifier, variant);
+        } else {
+            $A.util.addClass(notifier, 'slds-hide');
+            $A.util.removeClass(notifier, variant);
+        }
     },
 
     showMessage: function (component, event, variant) {
@@ -15,6 +20,6 @@
         component.set('v.msg', params.message);
         component.set('v.variant', variant);
 
-        this.toggleVisible(component);
+        this.toggleVisible(component, true);
     }
 })

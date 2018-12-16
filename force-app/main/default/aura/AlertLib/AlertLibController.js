@@ -1,7 +1,6 @@
 ({
-    toggleComponent: function(component, event, helper) {
-        
-        helper.toggleVisible(component);
+    dismiss: function(component, event, helper) {
+        helper.toggleVisible(component, false);
     },
 
     showError: function (component, event, helper) {
