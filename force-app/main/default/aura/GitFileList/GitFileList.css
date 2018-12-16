@@ -1,0 +1,11 @@
+.THIS.slds-box {
+    background-color: #fff;
+}
+
+.THIS .slds-spinner_container {
+    z-index: 10;
+}
+
+.THIS .inner-box {
+    min-height: 50px;
+}

@@ -1,11 +1,14 @@
 <aura:component>
 
+    <aura:registerEvent name="repoSelected" type="c:GitRepoSelected"/>
+
+    <aura:attribute name="service" type="String" required="true" />
     <aura:attribute name="repo" type="Object" required="true" />
 
     <li class="slds-item">
         <lightning:tile>
-            <p class="slds-text-heading_small"><a href="{!v.repo.url}" target="_blank">{!v.repo.name}</a></p>
-            <p class="slds-truncate" title="{!v.repo.slug}">{!v.repo.slug}</p>
+            <lightning:button variant="base" label="{!v.repo.name}" title="{!v.repo.name}" onclick="{!c.handleSelectRepo}"/>
+            <p class="slds-truncate"><a href="{!v.repo.url}" target="_blank">{!v.repo.slug}</a></p>
         </lightning:tile>
     </li>
 </aura:component>	

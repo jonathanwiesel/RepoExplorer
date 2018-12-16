@@ -31,7 +31,7 @@
 
             <ul class="slds-has-dividers_bottom-space repoList">
                 <aura:iteration items="{!v.repos}" var="gitRepo">
-                    <c:GitRepoItem repo="{!gitRepo}" />
+                    <c:GitRepoItem repo="{!gitRepo}" service="{!v.hostingService}"/>
                 </aura:iteration>
             </ul>
 

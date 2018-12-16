@@ -1,0 +1,23 @@
+<aura:component>
+
+    <aura:registerEvent name="dirSelected" type="c:GitDirectorySelected"/>
+    <aura:registerEvent name="fileSelected" type="c:GitFileSelected"/>
+
+    <aura:attribute name="file" type="Object" required="true" access="global"/>
+    
+    <li class="slds-item">
+        <lightning:tile>
+            <aura:if isTrue="{!v.file.type == 'FILE'}">
+                <lightning:button iconName="utility:page" variant="base" label="{!v.file.name}" title="{!v.file.name}" onclick="{!c.handleClick}"/>
+                <aura:set attribute="else">
+                    <aura:if isTrue="{!v.file.type == 'DIRECTORY'}">
+                        <lightning:button iconName="utility:open_folder" variant="base" label="{!v.file.name}" title="{!v.file.name}" onclick="{!c.handleClick}"/>
+                        <aura:set attribute="else">
+                            <lightning:button iconName="utility:question" variant="base" label="{!v.file.name}" title="{!v.file.name}" onclick="{!c.handleClick}"/>
+                        </aura:set>
+                    </aura:if>
+                </aura:set>
+            </aura:if>
+        </lightning:tile>
+    </li>
+</aura:component>	

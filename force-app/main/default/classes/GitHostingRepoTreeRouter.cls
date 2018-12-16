@@ -3,6 +3,10 @@ global with sharing class GitHostingRepoTreeRouter {
     @AuraEnabled(cacheable=true)
     global static GitRepoTreeResponseModel getFileTree(String hostingService, String ownerName, String repoSlug, String path, String branch) {
 
+        if (path == null) {
+            path = '';
+        }
+
         GitRepoTreeResponseModel responseModel;
 
         try {
@@ -23,6 +27,8 @@ global with sharing class GitHostingRepoTreeRouter {
             System.debug(e.getStackTraceString());
             responseModel = new GitRepoTreeResponseModel(e.getMessage());
         }
+
+        responseModel.tree.sort();
 
         return responseModel;
     }

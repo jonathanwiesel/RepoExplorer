@@ -9,6 +9,7 @@ global with sharing class BitbucketHostingService extends GitHostingService {
         for (RepoModel repo : model.values) {
             data.add(new GitRepoModel(
                 repo.name,
+                repo.slug,
                 repo.full_name,
                 repo.owner.display_name,
                 repo.is_private,
@@ -74,6 +75,7 @@ global with sharing class BitbucketHostingService extends GitHostingService {
         String language;
         String created_on;
         String full_name;
+        String slug;
         Boolean is_private;
         String description;
         OwnerModel owner;
