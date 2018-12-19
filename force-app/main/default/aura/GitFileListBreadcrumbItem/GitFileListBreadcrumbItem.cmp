@@ -1,0 +1,9 @@
+<aura:component>
+
+    <aura:registerEvent name="dirSelected" type="c:GitDirectorySelected"/>
+
+    <aura:attribute name="pathObj" type="Object" required="true" access="global"/>
+
+    <lightning:breadcrumb label="{!v.pathObj.label}" onclick="{!c.handleChangePath}"/>
+
+</aura:component>	

@@ -1,0 +1,17 @@
+<aura:component>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="change" value="{!v.currentPath}" action="{!c.pathChanged}"/>
+
+    <aura:attribute name="currentPath" type="String" required="true" access="global" />
+    <aura:attribute name="pathParts" type="Object[]" access="private" />
+
+    <!-- TODO: add breadcrum to go back to the root -->
+    
+    <lightning:breadcrumbs>
+        <aura:iteration items="{!v.pathParts}" var="pathPart">
+            <c:GitFileListBreadcrumbItem pathObj="{!pathPart}" />
+        </aura:iteration>
+    </lightning:breadcrumbs>
+
+</aura:component>	
