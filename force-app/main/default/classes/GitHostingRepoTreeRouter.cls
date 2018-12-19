@@ -1,7 +1,7 @@
 global with sharing class GitHostingRepoTreeRouter {
     
     @AuraEnabled(cacheable=true)
-    global static GitRepoTreeResponseModel getFileTree(String hostingService, String ownerName, String repoSlug, String path, String branch) {
+    global static GitRepoTreeResponseModel getFileTree(String stringifiedRepo, String path) {
 
         if (path == null) {
             path = '';
@@ -11,10 +11,12 @@ global with sharing class GitHostingRepoTreeRouter {
 
         try {
 
-            Git_Hosting_Service__mdt config = GitHostingConfig.getSpecificGitHost(hostingService);
-            GitHostingService service = GitHostingConfig.getServiceInstance(hostingService);
+            GitRepoModel repo = (GitRepoModel)JSON.deserialize(stringifiedRepo, GitRepoModel.class);
 
-            String endpoint = GitHostingRepoTreeRouter.getFormattedRepoTreeEndpoint(config, ownerName, repoSlug, path, branch);
+            Git_Hosting_Service__mdt config = GitHostingConfig.getSpecificGitHost(repo.hostingService);
+            GitHostingService service = GitHostingConfig.getServiceInstance(repo.hostingService);
+
+            String endpoint = GitHostingRepoTreeRouter.getFormattedRepoTreeEndpoint(config, repo.owner, repo.path, path, repo.mainBranch);
 
             HttpResponse res = CalloutManager.sendRequest(endpoint, 'GET', null, null);
 

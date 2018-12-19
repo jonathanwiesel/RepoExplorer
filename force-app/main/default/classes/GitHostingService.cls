@@ -1,5 +1,7 @@
 global abstract with sharing class GitHostingService {
     
+    public String serviceName;
+
     /**
      * Parse a success repository fetching request response
      * @param  page     - page asked for

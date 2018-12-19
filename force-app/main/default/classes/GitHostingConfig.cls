@@ -74,7 +74,11 @@ global with sharing class GitHostingConfig extends VisualEditor.DynamicPickList 
         }
 
         Type t = Type.forName(hostingConfig.Apex_Class__c);
-        return (GitHostingService)t.newInstance();
+
+        GitHostingService instance = (GitHostingService)t.newInstance();
+        instance.serviceName = hostingService;
+        
+        return instance;
     }
 
 

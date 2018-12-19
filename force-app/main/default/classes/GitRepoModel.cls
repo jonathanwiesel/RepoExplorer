@@ -1,6 +1,8 @@
 global with sharing class GitRepoModel {
     
     @AuraEnabled
+    public String hostingService;
+    @AuraEnabled
     public String name;
     @AuraEnabled
     public String slug;
@@ -15,7 +17,8 @@ global with sharing class GitRepoModel {
     @AuraEnabled
     public String mainBranch;
 
-    public GitRepoModel(String name, String path, String slug, String owner, Boolean isPrivate, String url, String mainBranch) {
+    public GitRepoModel(String hostingService, String name, String path, String slug, String owner, Boolean isPrivate, String url, String mainBranch) {
+        this.hostingService = hostingService;
         this.name = name;
         this.path = path;
         this.slug = slug;

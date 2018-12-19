@@ -2,7 +2,6 @@
 
     <aura:registerEvent name="repoSelected" type="c:GitRepoSelected"/>
 
-    <aura:attribute name="service" type="String" required="true" />
     <aura:attribute name="repo" type="Object" required="true" />
 
     <li class="slds-item">

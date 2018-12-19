@@ -1,7 +1,3 @@
 <aura:event type="APPLICATION">
-    <aura:attribute name="hostingService" type="String" />
-    <aura:attribute name="owner" type="String" />
-    <aura:attribute name="path" type="String" />
-    <aura:attribute name="repoSlug" type="String" />
-    <aura:attribute name="branch" type="String" />
+    <aura:attribute name="repo" type="Object" />
 </aura:event>

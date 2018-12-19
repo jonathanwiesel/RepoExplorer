@@ -13,8 +13,52 @@ private class GitHostingRepoTreeRouterTest {
     }
 
 
+    private static GitRepoModel getGihubRepoModel() {
+
+        return new GitRepoModel(
+            'Github', 
+            'RepoExplorer', 
+            'repoexplorer', 
+            'jonathanwiesel/repoexplorer', 
+            'jonathanwiesel', 
+            false, 
+            'https://github.com/jonathanwiesel/repoexplorer', 
+            'master'
+        );
+    }
+
+    private static GitRepoModel getBitbucketRepoModel() {
+
+        return new GitRepoModel(
+            'Bitbucket', 
+            'RepoExplorer', 
+            'repoexplorer', 
+            'jonathanwiesel/repoexplorer', 
+            'jonathanwiesel', 
+            false, 
+            'https://bitbucket.com/jonathanwiesel/repoexplorer', 
+            'master'
+        );
+    }
+
+    private static GitRepoModel getGitlabRepoModel() {
+
+        return new GitRepoModel(
+            'Gitlab', 
+            'RepoExplorer', 
+            'repoexplorer', 
+            'jonathanwiesel/repoexplorer', 
+            'jonathanwiesel', 
+            false, 
+            'https://gitlab.com/jonathanwiesel/repoexplorer', 
+            'master'
+        );
+    }
+
     @isTest static void testGithubRepoTree() {
 
+        GitRepoModel repo = GitHostingRepoTreeRouterTest.getGihubRepoModel();
+        
         StaticResourceCalloutMock mock = new StaticResourceCalloutMock();
         mock.setStaticResource('GithubFileTreeMockBody');
         mock.setStatusCode(200);
@@ -24,7 +68,7 @@ private class GitHostingRepoTreeRouterTest {
 
         GitRepoTreeResponseModel res;
         Test.startTest();
-            res = GitHostingRepoTreeRouter.getFileTree('Github', 'jonathanwiesel', 'repoexplorer', null, 'master');
+            res = GitHostingRepoTreeRouter.getFileTree(JSON.serialize(repo), null);
         Test.stopTest();
 
         GitHostingRepoTreeRouterTest.checkSuccessTreeResults(res);
@@ -32,6 +76,8 @@ private class GitHostingRepoTreeRouterTest {
 
 
     @isTest static void testGithubRepoTreeError() {
+
+        GitRepoModel repo = GitHostingRepoTreeRouterTest.getGihubRepoModel();
 
         StaticResourceCalloutMock mock = new StaticResourceCalloutMock();
         mock.setStaticResource('GithubErrorMockBody');
@@ -42,7 +88,7 @@ private class GitHostingRepoTreeRouterTest {
 
         GitRepoTreeResponseModel res;
         Test.startTest();
-            res = GitHostingRepoTreeRouter.getFileTree('Github', 'jonathanwiesel', 'repoexplorer', null, 'master');
+            res = GitHostingRepoTreeRouter.getFileTree(JSON.serialize(repo), null);
         Test.stopTest();
 
         System.assertNotEquals(null, res.error);
@@ -51,6 +97,8 @@ private class GitHostingRepoTreeRouterTest {
 
 
     @isTest static void testBitbucketRepoTree() {
+
+        GitRepoModel repo = GitHostingRepoTreeRouterTest.getBitbucketRepoModel();
 
         StaticResourceCalloutMock mock = new StaticResourceCalloutMock();
         mock.setStaticResource('BitbucketFileTreeMockBody');
@@ -61,7 +109,7 @@ private class GitHostingRepoTreeRouterTest {
 
         GitRepoTreeResponseModel res;
         Test.startTest();
-            res = GitHostingRepoTreeRouter.getFileTree('Bitbucket', 'jonathanwiesel', 'repoexplorer', null, 'master');
+            res = GitHostingRepoTreeRouter.getFileTree(JSON.serialize(repo), null);
         Test.stopTest();
 
         GitHostingRepoTreeRouterTest.checkSuccessTreeResults(res);
@@ -69,6 +117,8 @@ private class GitHostingRepoTreeRouterTest {
 
 
     @isTest static void testBitbucketRepoTreeError() {
+
+        GitRepoModel repo = GitHostingRepoTreeRouterTest.getBitbucketRepoModel();
 
         StaticResourceCalloutMock mock = new StaticResourceCalloutMock();
         mock.setStaticResource('BitbucketErrorMockBody');
@@ -79,7 +129,7 @@ private class GitHostingRepoTreeRouterTest {
 
         GitRepoTreeResponseModel res;
         Test.startTest();
-            res = GitHostingRepoTreeRouter.getFileTree('Bitbucket', 'jonathanwiesel', 'repoexplorer', null, 'master');
+            res = GitHostingRepoTreeRouter.getFileTree(JSON.serialize(repo), null);
         Test.stopTest();
 
         System.assertNotEquals(null, res.error);
@@ -88,6 +138,8 @@ private class GitHostingRepoTreeRouterTest {
 
 
     @isTest static void testGitlabRepoTree() {
+
+        GitRepoModel repo = GitHostingRepoTreeRouterTest.getGitlabRepoModel();
 
         StaticResourceCalloutMock mock = new StaticResourceCalloutMock();
         mock.setStaticResource('GitlabFileTreeMockBody');
@@ -98,7 +150,7 @@ private class GitHostingRepoTreeRouterTest {
 
         GitRepoTreeResponseModel res;
         Test.startTest();
-            res = GitHostingRepoTreeRouter.getFileTree('Gitlab', 'jonathanwiesel', 'repoexplorer', null, 'master');
+            res = GitHostingRepoTreeRouter.getFileTree(JSON.serialize(repo), null);
         Test.stopTest();
 
         GitHostingRepoTreeRouterTest.checkSuccessTreeResults(res);
@@ -106,6 +158,8 @@ private class GitHostingRepoTreeRouterTest {
 
 
     @isTest static void testGitlabRepoTreeError() {
+
+        GitRepoModel repo = GitHostingRepoTreeRouterTest.getGitlabRepoModel();
 
         StaticResourceCalloutMock mock = new StaticResourceCalloutMock();
         mock.setStaticResource('GitlabErrorMockBody');
@@ -116,7 +170,7 @@ private class GitHostingRepoTreeRouterTest {
 
         GitRepoTreeResponseModel res;
         Test.startTest();
-            res = GitHostingRepoTreeRouter.getFileTree('Gitlab', 'jonathanwiesel', 'repoexplorer', null, 'master');
+            res = GitHostingRepoTreeRouter.getFileTree(JSON.serialize(repo), null);
         Test.stopTest();
 
         System.assertNotEquals(null, res.error);

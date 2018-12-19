@@ -8,6 +8,7 @@ global with sharing class BitbucketHostingService extends GitHostingService {
 
         for (RepoModel repo : model.values) {
             data.add(new GitRepoModel(
+                this.serviceName,
                 repo.name,
                 repo.slug,
                 repo.full_name,

@@ -12,6 +12,7 @@ global with sharing class GitlabHostingService extends GitHostingService {
 
         for (RepoModel repo : models) {
             data.add(new GitRepoModel(
+                this.serviceName,
                 repo.name,
                 repo.path,
                 repo.path_with_namespace,

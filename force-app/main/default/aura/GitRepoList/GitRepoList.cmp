@@ -16,7 +16,7 @@
     <div class="slds-box">
 
         <div class="slds-text-title_caps">
-            {!v.owner} repositories on {!v.hostingService}
+            <b>{!v.owner}</b> repositories on {!v.hostingService}
         </div>
 
         <div class="slds-m-bottom_small"></div>
@@ -31,7 +31,7 @@
 
             <ul class="slds-has-dividers_bottom-space repoList">
                 <aura:iteration items="{!v.repos}" var="gitRepo">
-                    <c:GitRepoItem repo="{!gitRepo}" service="{!v.hostingService}"/>
+                    <c:GitRepoItem repo="{!gitRepo}"/>
                 </aura:iteration>
             </ul>
 

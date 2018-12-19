@@ -3,13 +3,12 @@
 
         this.toggleSpinner(component);
 
+        var repo = component.get('v.repo');
+
         var getFilesAction = component.get('c.getFileTree');
         getFilesAction.setParams({
-            'hostingService': component.get('v.hostingService'),
-            'ownerName': component.get('v.owner'),
-            'repoSlug': component.get('v.repoPath'),
+            'stringifiedRepo': JSON.stringify(repo),
             'path': component.get('v.filesPath'),
-            'branch': component.get('v.branch')
         });
         
         var _this = this;

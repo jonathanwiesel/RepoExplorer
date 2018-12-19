@@ -5,11 +5,7 @@
 
         var showFiles = $A.get('e.c:GitRepoSelected');
         showFiles.setParams({
-            'hostingService': component.get('v.service'),
-            'owner': repo.owner,
-            'path': repo.path,
-            'repoSlug': repo.slug,
-            'branch': repo.mainBranch 
+            'repo': repo
         });
         showFiles.fire();
     }

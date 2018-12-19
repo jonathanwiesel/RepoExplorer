@@ -15,6 +15,7 @@ global with sharing class GithubHostingService extends GitHostingService {
 
         for (RepoModel repo : models) {
             data.add(new GitRepoModel(
+                this.serviceName,
                 repo.name,
                 repo.name,
                 repo.full_name,

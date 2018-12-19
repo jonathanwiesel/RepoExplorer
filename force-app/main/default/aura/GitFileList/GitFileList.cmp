@@ -3,35 +3,36 @@
     <aura:handler name="dirSelected" event="c:GitDirectorySelected" action="{!c.handlePathChange}"/>
     <aura:handler event="c:GitRepoSelected" action="{!c.handleRepoChange}"/>
 
-    <aura:attribute name="hostingService" required="true" type="String" access="global"/>
-    <aura:attribute name="owner" required="true" type="String" access="global"/>
-    <aura:attribute name="repoPath" required="true" type="String" access="global"/>
-    <aura:attribute name="repoSlug" required="true" type="String" access="global"/>
-    <aura:attribute name="branch" required="true" type="String" access="global"/>
+    <aura:attribute name="repo" required="true" type="Object" access="global"/>
 
     <aura:attribute name="filesPath" type="String" access="private" default=""/>
     <aura:attribute name="files" type="Object[]" access="private" default="[]"/>
 
 
-    <div class="slds-box">
-        <div class="slds-is-relative inner-box">
-            
-            <c:AlertLib aura:id="alertLib"/>
+    <aura:if isTrue="{!not(empty(v.repo))}">
+        <div class="slds-box">
+            <div class="slds-is-relative inner-box">
+                
+                <div class="slds-text-title_caps">
+                    <b>{!v.repo.name}</b> files
+                </div>
 
-            <div aura:id="loadingSpinner" class="slds-hide loadingSpinner">
-                <lightning:spinner size="medium" />
+                <c:AlertLib aura:id="alertLib"/>
+
+                <div aura:id="loadingSpinner" class="slds-hide loadingSpinner">
+                    <lightning:spinner size="medium" />
+                </div>
+                
+                <div class="slds-m-top_medium"></div>
+
+
+                <ul class="slds-has-dividers_bottom-space repoList">
+                    <aura:iteration items="{!v.files}" var="gitFile">
+                        <c:GitFileItem file="{!gitFile}" />
+                    </aura:iteration>
+                </ul>
             </div>
-
-            <!-- TODO: show breadcrumbs to go back the file tree -->
-
-            <ul class="slds-has-dividers_bottom-space repoList">
-                <aura:iteration items="{!v.files}" var="gitFile">
-                    <c:GitFileItem file="{!gitFile}" />
-                </aura:iteration>
-            </ul>
-
-            <!-- TODO: show placeholder when there's nothing to show -->
         </div>
-    </div>
+    </aura:if>
 
 </aura:component>	
