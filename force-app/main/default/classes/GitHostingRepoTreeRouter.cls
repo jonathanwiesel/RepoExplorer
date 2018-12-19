@@ -16,7 +16,7 @@ global with sharing class GitHostingRepoTreeRouter {
             Git_Hosting_Service__mdt config = GitHostingConfig.getSpecificGitHost(repo.hostingService);
             GitHostingService service = GitHostingConfig.getServiceInstance(repo.hostingService);
 
-            String endpoint = GitHostingRepoTreeRouter.getFormattedRepoTreeEndpoint(config, repo.owner, repo.path, path, repo.mainBranch);
+            String endpoint = GitHostingRepoTreeRouter.getFormattedRepoTreeEndpoint(config, repo.ownerPath, repo.path, path, repo.mainBranch);
 
             HttpResponse res = CalloutManager.sendRequest(endpoint, 'GET', null, null);
 
@@ -36,11 +36,11 @@ global with sharing class GitHostingRepoTreeRouter {
     }
 
 
-    private static String getFormattedRepoTreeEndpoint(Git_Hosting_Service__mdt config, String ownerName, String repoSlug, String path, String branch) {
+    private static String getFormattedRepoTreeEndpoint(Git_Hosting_Service__mdt config, String ownerPath, String repoPath, String path, String branch) {
 
         return CalloutManager.getFormattedEndpoint(
             config.Named_Credential_Name__c, 
-            String.format(config.Get_File_Tree_Endpoint__c, new String[]{ownerName, repoSlug, path, branch})
+            String.format(config.Get_File_Tree_Endpoint__c, new String[]{ownerPath, repoPath, path, branch})
         );
     }
 }

@@ -17,6 +17,7 @@ global with sharing class GitlabHostingService extends GitHostingService {
                 repo.path,
                 repo.path_with_namespace,
                 repo.owner != null ? repo.owner.name : repo.namespace.name,
+                repo.owner != null ? repo.owner.username : repo.namespace.path,
                 repo.visibility != PUBLIC_VISIBILITY,
                 repo.web_url,
                 repo.default_branch
@@ -90,6 +91,7 @@ global with sharing class GitlabHostingService extends GitHostingService {
 
         String id;
         String name;
+        String path;
     }
 
 

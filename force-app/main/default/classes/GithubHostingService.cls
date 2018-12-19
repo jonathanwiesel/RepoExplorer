@@ -20,6 +20,7 @@ global with sharing class GithubHostingService extends GitHostingService {
                 repo.name,
                 repo.full_name,
                 repo.owner.login,
+                repo.owner.login,
                 repo.privateX,
                 repo.html_url,
                 repo.default_branch

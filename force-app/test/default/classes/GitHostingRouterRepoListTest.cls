@@ -9,7 +9,8 @@ private class GitHostingRouterRepoListTest {
         GitRepoModel repo = res.repos[0];
         System.assertNotEquals(null, repo.name);
         System.assertNotEquals(null, repo.slug);
-        System.assertNotEquals(null, repo.owner);
+        System.assertNotEquals(null, repo.ownerName);
+        System.assertNotEquals(null, repo.ownerPath);
         System.assertNotEquals(null, repo.url);
         System.assertNotEquals(null, repo.isPrivate);
     }

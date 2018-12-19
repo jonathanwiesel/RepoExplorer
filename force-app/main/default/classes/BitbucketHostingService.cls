@@ -13,6 +13,7 @@ global with sharing class BitbucketHostingService extends GitHostingService {
                 repo.slug,
                 repo.full_name,
                 repo.owner.display_name,
+                repo.owner.username,
                 repo.is_private,
                 repo.links.html.href,
                 repo.mainbranch.name
