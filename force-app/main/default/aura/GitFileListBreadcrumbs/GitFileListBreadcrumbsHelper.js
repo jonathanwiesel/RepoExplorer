@@ -4,7 +4,10 @@
         var currentPath = component.get('v.currentPath');
         var parts = currentPath.split('/');
 
-        var completeParts = [];
+        var completeParts = [{
+            label: '...',
+            fullPath: ''
+        }];
         var acumPath = '';
 
         parts.forEach(function(part) {
