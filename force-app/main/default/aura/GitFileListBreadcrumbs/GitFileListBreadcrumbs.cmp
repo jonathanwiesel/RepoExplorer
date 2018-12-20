@@ -6,7 +6,7 @@
     <aura:attribute name="currentPath" type="String" required="true" access="global" />
     <aura:attribute name="pathParts" type="Object[]" access="private" />
     
-    <lightning:breadcrumbs>
+    <lightning:breadcrumbs class="slds-box">
         <aura:iteration items="{!v.pathParts}" var="pathPart">
             <c:GitFileListBreadcrumbItem pathObj="{!pathPart}" />
         </aura:iteration>
