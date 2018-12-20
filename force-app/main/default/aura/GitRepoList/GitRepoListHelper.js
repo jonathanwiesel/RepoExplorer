@@ -3,13 +3,15 @@
 
         this.toggleSpinner(component);
 
+        var paginator = component.find('paginator');
+
         var getReposAction = component.get('c.getRepositoriesInDomain');
         getReposAction.setParams({
             'hostingService': component.get('v.hostingService'),
             'isUser': component.get('v.isUser'),
             'domain': component.get('v.owner'),
-            'page': component.get('v.page'),
-            'pageSize': component.get('v.pageSize')
+            'page': paginator.getCurrentPage(),
+            'pageSize': paginator.getPageSize()
         });
         
         var _this = this;
@@ -27,8 +29,7 @@
                     return;
                 }
 
-                component.set('v.hasPrevious', res.hasPrevPage);
-                component.set('v.hasNext', res.hasNextPage);
+                _this.setPaginatorDirection(component, res.hasPrevPage, res.hasNextPage);
                 component.set('v.repos', res.repos);
 
             } else if (state === "ERROR") {
@@ -63,4 +64,11 @@
         var working = component.get('v.working');
         component.set('v.working', !working);
     },
+
+
+    setPaginatorDirection: function(component, hasPrev, hasNext) {
+
+        var paginator = component.find('paginator');
+        paginator.setValues(hasPrev, hasNext);
+    }
 })

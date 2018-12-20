@@ -33,7 +33,8 @@ global with sharing class GithubHostingService extends GitHostingService {
         return new GitRepoListResponseModel(pageSize, page, hasNextPage, data);
     }
 
-    global override GitRepoTreeResponseModel parseGetFileTreeRequest(HTTPResponse res) {
+
+    global override GitRepoTreeResponseModel parseGetFileTreeRequest(Integer page, Integer pageSize, HTTPResponse res) {
         
         FileModel[] models = (FileModel[])JSON.deserialize(res.getBody(), FileModel[].class);
 
@@ -47,7 +48,7 @@ global with sharing class GithubHostingService extends GitHostingService {
             ));
         }
         
-        return new GitRepoTreeResponseModel(data);
+        return new GitRepoTreeResponseModel(pageSize, page, false, data);
     }
 
 

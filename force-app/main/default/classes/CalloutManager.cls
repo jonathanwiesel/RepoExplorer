@@ -12,7 +12,7 @@ global inherited sharing class CalloutManager {
     global static HTTPResponse sendRequest(String endpoint, String method, Map<String, String> queryParams, Map<String, String> headers) {
         
         HttpRequest req = new HttpRequest();
-        req.setEndpoint(endpoint + CalloutManager.getQueryStringParams(queryParams));
+        req.setEndpoint(endpoint + CalloutManager.getQueryStringParams(endpoint, queryParams));
         req.setMethod(method);
 
         CalloutManager.setHeaders(req, headers);
@@ -24,9 +24,10 @@ global inherited sharing class CalloutManager {
 
     /**
      * Obtain query string params to append to the endpoint
+     * @param  endpoint    - endpoint to hit
      * @param  queryParams - params to add
      */
-    private static String getQueryStringParams(Map<String, String> queryParams) {
+    private static String getQueryStringParams(String endpoint, Map<String, String> queryParams) {
 
         String[] parts = new String[]{};
 
@@ -37,7 +38,8 @@ global inherited sharing class CalloutManager {
             }
         }
 
-        return parts.isEmpty() ? '' : '?' + String.join(parts, '&');
+        return parts.isEmpty() ? '' : 
+                ((endpoint.contains('?') ? '&' : '?' ) + String.join(parts, '&'));
     }
 
 

@@ -82,5 +82,20 @@ global with sharing class GitHostingConfig extends VisualEditor.DynamicPickList 
     }
 
 
+    /**
+     * Obtain additional parameters to send in the request
+     * @param  config   - git hosting configuration object
+     * @param  page     - page number being requested
+     * @param  pageSize - amount of results per page
+     */
+    global static Map<String, String> getPaginationParams(Git_Hosting_Service__mdt config, Integer page, Integer pageSize) {
+
+        return new Map<String, String>{
+            config.Page_Parameter__c => String.valueOf(page),
+            config.Page_Size_Parameter__c => String.valueOf(pageSize)
+        };
+    }
+
+
     public class InvalidServiceException extends Exception {}
 }

@@ -1,13 +1,14 @@
 <aura:component implements="flexipage:availableForAllPageTypes" controller="GitHostingRepoTreeRouter" access="global">
 
     <aura:handler name="dirSelected" event="c:GitDirectorySelected" action="{!c.handlePathChange}"/>
+    <aura:handler name="pageChanged" event="c:PageChanged" action="{!c.handlePageChange}"/>
     <aura:handler event="c:GitRepoSelected" action="{!c.handleRepoChange}"/>
 
     <aura:attribute name="repo" required="true" type="Object" access="global"/>
+    <aura:attribute name="pageSize" type="Integer" default="10" access="global" />
 
     <aura:attribute name="filesPath" type="String" access="private" default=""/>
     <aura:attribute name="files" type="Object[]" access="private" default="[]"/>
-
 
     <aura:if isTrue="{!not(empty(v.repo))}">
         <div class="slds-box">
@@ -34,6 +35,10 @@
                         <c:GitFileItem file="{!gitFile}" />
                     </aura:iteration>
                 </ul>
+                
+                <div class="slds-m-top_medium"></div>
+
+                <c:ListPaginator isLoading="{!v.working}" size="{!v.pageSize}" aura:id="paginator"/>
             </div>
         </div>
     </aura:if>

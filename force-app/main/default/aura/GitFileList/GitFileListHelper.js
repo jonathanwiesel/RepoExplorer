@@ -4,11 +4,14 @@
         this.toggleSpinner(component);
 
         var repo = component.get('v.repo');
-
+        var paginator = component.find('paginator');
+        
         var getFilesAction = component.get('c.getFileTree');
         getFilesAction.setParams({
             'stringifiedRepo': JSON.stringify(repo),
             'path': component.get('v.filesPath'),
+            'page': paginator.getCurrentPage(),
+            'pageSize': paginator.getPageSize()
         });
         
         var _this = this;
@@ -27,6 +30,7 @@
                     return;
                 }
 
+                _this.setPaginatorDirection(component, res.hasPrevPage, res.hasNextPage);
                 component.set('v.files', res.tree);
 
             } else if (state === "ERROR") {
@@ -47,9 +51,11 @@
         $A.enqueueAction(getFilesAction);
     },
 
+
     showError: function(component, err) {
         component.find('alertLib').showErrorAlert(err);
     },
+
 
     toggleSpinner: function (component) {
         
@@ -59,4 +65,18 @@
         var working = component.get('v.working');
         component.set('v.working', !working);
     },
+
+
+    goToFirstPage: function(component) {
+        
+        var paginator = component.find('paginator');
+        paginator.resetPage();
+    },
+
+    
+    setPaginatorDirection: function(component, hasPrev, hasNext) {
+
+        var paginator = component.find('paginator');
+        paginator.setValues(hasPrev, hasNext);
+    }
 })

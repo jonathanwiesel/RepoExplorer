@@ -24,13 +24,13 @@ global with sharing class BitbucketHostingService extends GitHostingService {
     }
 
 
-    global override GitRepoTreeResponseModel parseGetFileTreeRequest(HTTPResponse res) {
+    global override GitRepoTreeResponseModel parseGetFileTreeRequest(Integer page, Integer pageSize, HTTPResponse res) {
         
-        FileListModel models = (FileListModel)JSON.deserialize(res.getBody(), FileListModel.class);
+        FileListModel model = (FileListModel)JSON.deserialize(res.getBody(), FileListModel.class);
 
         GitFileModel[] data = new GitFileModel[]{};
 
-        for (FileModel file : models.values) {
+        for (FileModel file : model.values) {
             data.add(new GitFileModel(
                 file.getName(),
                 file.path,
@@ -38,7 +38,7 @@ global with sharing class BitbucketHostingService extends GitHostingService {
             ));
         }
 
-        return new GitRepoTreeResponseModel(data);
+        return new GitRepoTreeResponseModel(pageSize, page, model.next != null, data);
     }
 
 

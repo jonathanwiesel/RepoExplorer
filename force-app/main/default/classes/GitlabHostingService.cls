@@ -31,7 +31,7 @@ global with sharing class GitlabHostingService extends GitHostingService {
     }
 
 
-    global override GitRepoTreeResponseModel parseGetFileTreeRequest(HTTPResponse res) {
+    global override GitRepoTreeResponseModel parseGetFileTreeRequest(Integer page, Integer pageSize, HTTPResponse res) {
         
         FileModel[] models = (FileModel[])JSON.deserialize(res.getBody(), FileModel[].class);
 
@@ -45,7 +45,10 @@ global with sharing class GitlabHostingService extends GitHostingService {
             ));
         }
         
-        return new GitRepoTreeResponseModel(data);
+        String links = res.getHeader(LINKS_HEADER_NAME);
+        Boolean hasNextPage = String.isNotBlank(links) && links.contains(NEXT_PAGE_LINK_IDENTIFIER);
+
+        return new GitRepoTreeResponseModel(pageSize, page, hasNextPage, data);
     }
 
 

@@ -71,7 +71,7 @@ private class GitHostingRepoTreeRouterTest {
 
         GitRepoTreeResponseModel res;
         Test.startTest();
-            res = GitHostingRepoTreeRouter.getFileTree(JSON.serialize(repo), null);
+            res = GitHostingRepoTreeRouter.getFileTree(JSON.serialize(repo), null, 1, 20);
         Test.stopTest();
 
         GitHostingRepoTreeRouterTest.checkSuccessTreeResults(res);
@@ -91,7 +91,7 @@ private class GitHostingRepoTreeRouterTest {
 
         GitRepoTreeResponseModel res;
         Test.startTest();
-            res = GitHostingRepoTreeRouter.getFileTree(JSON.serialize(repo), null);
+            res = GitHostingRepoTreeRouter.getFileTree(JSON.serialize(repo), null, 1, 20);
         Test.stopTest();
 
         System.assertNotEquals(null, res.error);
@@ -112,7 +112,7 @@ private class GitHostingRepoTreeRouterTest {
 
         GitRepoTreeResponseModel res;
         Test.startTest();
-            res = GitHostingRepoTreeRouter.getFileTree(JSON.serialize(repo), null);
+            res = GitHostingRepoTreeRouter.getFileTree(JSON.serialize(repo), null, 1, 20);
         Test.stopTest();
 
         GitHostingRepoTreeRouterTest.checkSuccessTreeResults(res);
@@ -132,7 +132,7 @@ private class GitHostingRepoTreeRouterTest {
 
         GitRepoTreeResponseModel res;
         Test.startTest();
-            res = GitHostingRepoTreeRouter.getFileTree(JSON.serialize(repo), null);
+            res = GitHostingRepoTreeRouter.getFileTree(JSON.serialize(repo), null, 1, 20);
         Test.stopTest();
 
         System.assertNotEquals(null, res.error);
@@ -153,7 +153,7 @@ private class GitHostingRepoTreeRouterTest {
 
         GitRepoTreeResponseModel res;
         Test.startTest();
-            res = GitHostingRepoTreeRouter.getFileTree(JSON.serialize(repo), null);
+            res = GitHostingRepoTreeRouter.getFileTree(JSON.serialize(repo), null, 1, 20);
         Test.stopTest();
 
         GitHostingRepoTreeRouterTest.checkSuccessTreeResults(res);
@@ -173,7 +173,7 @@ private class GitHostingRepoTreeRouterTest {
 
         GitRepoTreeResponseModel res;
         Test.startTest();
-            res = GitHostingRepoTreeRouter.getFileTree(JSON.serialize(repo), null);
+            res = GitHostingRepoTreeRouter.getFileTree(JSON.serialize(repo), null, 1, 20);
         Test.stopTest();
 
         System.assertNotEquals(null, res.error);

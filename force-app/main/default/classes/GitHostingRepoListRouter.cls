@@ -21,7 +21,7 @@ global with sharing class GitHostingRepoListRouter {
             GitHostingService service = GitHostingConfig.getServiceInstance(hostingService);
 
             String endpoint = GitHostingRepoListRouter.getFormattedRepoListEndpoint(config, isUser, domain);
-            Map<String, String> params = GitHostingRepoListRouter.getPaginationParams(config, page, pageSize);
+            Map<String, String> params = GitHostingConfig.getPaginationParams(config, page, pageSize);
 
             HttpResponse res = CalloutManager.sendRequest(endpoint, 'GET', params, null);
 
@@ -50,20 +50,5 @@ global with sharing class GitHostingRepoListRouter {
             config.Named_Credential_Name__c, 
             String.format(isUser ? config.Get_Repos_Endpoint__c : config.Get_Team_Repos_Endpoint__c, new String[]{domain})
         );
-    }
-
-
-    /**
-     * Obtain additional parameters to send in the request
-     * @param  config   - git hosting configuration object
-     * @param  page     - page number being requested
-     * @param  pageSize - amount of results per page
-     */
-    private static Map<String, String> getPaginationParams(Git_Hosting_Service__mdt config, Integer page, Integer pageSize) {
-
-        return new Map<String, String>{
-            config.Page_Parameter__c => String.valueOf(page),
-            config.Page_Size_Parameter__c => String.valueOf(pageSize)
-        };
     }
 }
