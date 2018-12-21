@@ -1,0 +1,3 @@
+<design:component >
+    <design:attribute name="pageSize" label="Page Size" default="10" description="Amount of repositories to show per page"/>
+</design:component>

@@ -1,9 +1,5 @@
 ({
-    doInit: function(component, event, helper) {
-        helper.fetchRepos(component);
-    },
-
-    handlePageChange: function(component, event, helper) {
+    goFetch: function(component, event, helper) {
         helper.fetchRepos(component);
     },
 })

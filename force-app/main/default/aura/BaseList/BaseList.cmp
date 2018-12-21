@@ -1,0 +1,35 @@
+<aura:component abstract="true">
+
+    <aura:attribute name="pageSize" type="Integer" default="10" access="global" />
+    <aura:attribute name="title" type="String" access="global" />
+    <aura:attribute name="items" type="List" default="[]" access="global" />
+    <aura:attribute name="isVisible" type="Boolean" default="true" access="global" />
+
+    <aura:attribute name="working" type="Boolean" default="false" access="private" />
+    
+    <aura:if isTrue="{!v.isVisible}">
+        <div class="slds-box">
+            <div class="slds-is-relative inner-box">
+                
+                <c:AlertLib aura:id="alertLib"/>
+
+                <div class="slds-text-title_caps">
+                    {!v.title}
+                </div>
+
+                <div aura:id="loadingSpinner" class="slds-hide loadingSpinner">
+                    <lightning:spinner size="medium" />
+                </div>
+                
+                <div class="slds-m-top_medium"></div>
+
+                {!v.body}
+                
+                <div class="slds-m-top_medium"></div>
+
+                <c:ListPaginator isLoading="{!v.working}" size="{!v.pageSize}" aura:id="paginator"/>
+            </div>
+        </div>
+    </aura:if>
+
+</aura:component>	

@@ -11,8 +11,9 @@
 
     handlePathChange: function(component, event, helper) {
 
-        helper.goToFirstPage(component);
         component.set('v.filesPath', event.getParam('selectedPath'));
+
+        helper.goToFirstPage(component);
         helper.fetchFiles(component);
     },
 

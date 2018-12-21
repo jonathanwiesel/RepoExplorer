@@ -1,46 +1,23 @@
-<aura:component implements="flexipage:availableForAllPageTypes" controller="GitHostingRepoTreeRouter" access="global">
+<aura:component implements="flexipage:availableForAllPageTypes" controller="GitHostingRepoTreeRouter" access="global" extends="c:BaseList">
 
     <aura:handler name="dirSelected" event="c:GitDirectorySelected" action="{!c.handlePathChange}"/>
     <aura:handler name="pageChanged" event="c:PageChanged" action="{!c.handlePageChange}"/>
     <aura:handler event="c:GitRepoSelected" action="{!c.handleRepoChange}"/>
 
     <aura:attribute name="repo" required="true" type="Object" access="global"/>
-    <aura:attribute name="pageSize" type="Integer" default="10" access="global" />
-
     <aura:attribute name="filesPath" type="String" access="private" default=""/>
-    <aura:attribute name="files" type="Object[]" access="private" default="[]"/>
 
-    <aura:if isTrue="{!not(empty(v.repo))}">
-        <div class="slds-box">
-            <div class="slds-is-relative inner-box">
-                
-                <div class="slds-text-title_caps">
-                    <b>{!v.repo.name}</b> files
-                </div>
+    <aura:set attribute="title" value="{!v.repo.name + ' files'}" />
+    <aura:set attribute="isVisible" value="{!not(empty(v.repo))}" />
 
-                <c:AlertLib aura:id="alertLib"/>
-
-                <div aura:id="loadingSpinner" class="slds-hide loadingSpinner">
-                    <lightning:spinner size="medium" />
-                </div>
-                
-                <div class="slds-m-top_medium"></div>
-
-                <aura:if isTrue="{!not(empty(v.filesPath))}">
-                    <c:GitFileListBreadcrumbs currentPath="{!v.filesPath}" />
-                </aura:if>
-
-                <ul class="slds-has-dividers_bottom-space repoList">
-                    <aura:iteration items="{!v.files}" var="gitFile">
-                        <c:GitFileItem file="{!gitFile}" />
-                    </aura:iteration>
-                </ul>
-                
-                <div class="slds-m-top_medium"></div>
-
-                <c:ListPaginator isLoading="{!v.working}" size="{!v.pageSize}" aura:id="paginator"/>
-            </div>
-        </div>
+    <aura:if isTrue="{!not(empty(v.filesPath))}">
+        <c:GitFileListBreadcrumbs currentPath="{!v.filesPath}" />
     </aura:if>
+
+    <ul class="slds-has-dividers_bottom-space repoList">
+        <aura:iteration items="{!v.items}" var="gitFile">
+            <c:GitFileItem file="{!gitFile}" />
+        </aura:iteration>
+    </ul>
 
 </aura:component>	
