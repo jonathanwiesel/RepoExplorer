@@ -3,4 +3,5 @@
     <design:attribute name="owner" label="Owner username" required="true" description="Username of the user or group that own the repositories"/>
     <design:attribute name="isUser" label="Owner is a User?" default="true" description="Since the owner could be a user or a group / team, specify what the owner is"/>
     <design:attribute name="pageSize" label="Page Size" default="10" description="Amount of repositories to show per page"/>
+    <design:attribute name="showDescription" label="Show description?" default="false" description="Whether to show the description for each repo in the list"/>
 </design:component>
