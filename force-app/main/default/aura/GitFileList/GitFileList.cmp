@@ -4,7 +4,7 @@
     <aura:handler name="pageChanged" event="c:PageChanged" action="{!c.handlePageChange}"/>
     <aura:handler event="c:GitRepoSelected" action="{!c.handleRepoChange}"/>
 
-    <aura:attribute name="repo" required="true" type="Object" access="global"/>
+    <aura:attribute name="repo" type="Object" access="private"/>
     <aura:attribute name="filesPath" type="String" access="private" default=""/>
 
     <aura:set attribute="title" value="{!v.repo.name + ' files'}" />
