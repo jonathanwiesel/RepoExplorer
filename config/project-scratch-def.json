@@ -1,8 +1,11 @@
 {
     "orgName": "S4G",
     "edition": "Developer",
-    "orgPreferences" : {
-        "enabled": ["S1DesktopEnabled"],
-        "disabled": ["S1EncryptedStoragePref2"]
+    "language": "en_US",
+    "settings": {
+        "orgPreferenceSettings" : {
+            "s1DesktopEnabled": true,
+            "s1EncryptedStoragePref2": false
+        }
     }
 }
