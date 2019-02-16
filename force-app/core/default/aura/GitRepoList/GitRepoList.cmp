@@ -2,7 +2,7 @@
     
     <aura:handler name="init" value="{!this}" action="{!c.goFetch}"/>
 
-    <aura:handler name="pageChanged" event="c:PageChanged" action="{!c.goFetch}"/>
+    <aura:handler name="pageChangedFromParent" event="c:PageChanged" action="{!c.goFetch}"/>
     
     <aura:attribute name="hostingService" type="String" required="true" access="global"/>
     <aura:attribute name="owner" type="String" required="true" access="global"/>

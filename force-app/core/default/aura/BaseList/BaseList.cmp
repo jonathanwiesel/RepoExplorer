@@ -1,5 +1,8 @@
 <aura:component abstract="true">
 
+    <aura:handler name="pageChanged" event="c:PageChanged" action="{!c.fireToChildren}"/>
+    <aura:registerEvent name="pageChangedFromParent" type="c:PageChanged"/>
+
     <aura:attribute name="pageSize" type="Integer" default="10" access="global" />
     <aura:attribute name="title" type="String" access="global" />
     <aura:attribute name="items" type="List" default="[]" access="global" />

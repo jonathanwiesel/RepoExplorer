@@ -1,4 +1,11 @@
 ({
+    
+    redirectPageChangeToChildren: function(component) {
+        
+        var pageChanged = component.getEvent('pageChangedFromParent');
+        pageChanged.fire();
+    },
+    
     fetchData: function(component, actionName, params, responseListName) {
 
         var superComp = component.getSuper();

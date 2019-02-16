@@ -1,7 +1,7 @@
 <aura:component implements="flexipage:availableForAllPageTypes" controller="GitHostingRepoTreeRouter" access="global" extends="c:BaseList">
 
     <aura:handler name="dirSelected" event="c:GitDirectorySelected" action="{!c.handlePathChange}"/>
-    <aura:handler name="pageChanged" event="c:PageChanged" action="{!c.handlePageChange}"/>
+    <aura:handler name="pageChangedFromParent" event="c:PageChanged" action="{!c.handlePageChange}"/>
     <aura:handler event="c:GitRepoSelected" action="{!c.handleRepoChange}"/>
 
     <aura:attribute name="repo" type="Object" access="private"/>
