@@ -2,17 +2,24 @@ global abstract with sharing class GitHostingService {
     
     public String serviceName;
 
+    /**
+     * Obtain endpoint to list available repos
+     * @param  isUser - whether the domain to obtain repos is an user or a team
+     * @param  domain - name of the user or team
+     */
     global abstract String getRepoListEndpoint(Boolean isUser, String domain);
 
+    /**
+     * Obtain additional parameters to include in the request to obtain in list of repositories
+     * @param  page     - current page of the list
+     * @param  pageSize - amount of repos per page
+     */
     global abstract Map<String, String> getRepoListParams(Integer page, Integer pageSize);
 
+    /**
+     * Obtan additional headers to include in the request to obtain in list of repositories
+     */
     global abstract Map<String, String> getRepoListHeaders();
-
-    global abstract String getRepoTreeEndpoint(String ownerPath, String repoPath, String path, String branch);
-
-    global abstract Map<String, String> getRepoTreeParams(Integer page, Integer pageSize);
-
-    global abstract Map<String, String> getRepoTreeHeaders();
 
     /**
      * Parse a success repository fetching request response
@@ -21,6 +28,27 @@ global abstract with sharing class GitHostingService {
      * @param  res      - response object
      */
     global abstract GitRepoListResponseModel parseGetReposRequest(Integer page, Integer pageSize, HTTPResponse res);
+
+    /**
+     * Obtin endpoint to list available files in a repository path
+     * @param  ownerPath - owner's path
+     * @param  repoPath  - repository path
+     * @param  path      - file path in which the files are included
+     * @param  branch    - branch to obtain files from
+     */
+    global abstract String getRepoTreeEndpoint(String ownerPath, String repoPath, String path, String branch);
+
+    /**
+     * Obtain additional parameters to include in the request to obtain in list of files
+     * @param  page     - current page of the list
+     * @param  pageSize - amount of repos per page
+     */
+    global abstract Map<String, String> getRepoTreeParams(Integer page, Integer pageSize);
+
+    /**
+     * Obtan additional headers to include in the request to obtain in list of repositories
+     */
+    global abstract Map<String, String> getRepoTreeHeaders();
 
     /**
      * Parse a success file tree fetching request response
