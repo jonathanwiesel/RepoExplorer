@@ -7,27 +7,7 @@
         <value xsi:type="xsd:string">GitlabHostingService</value>
     </values>
     <values>
-        <field>Get_File_Tree_Endpoint__c</field>
-        <value xsi:type="xsd:string">/projects/{0}%2F{1}/repository/tree?path={2}&amp;ref={3}</value>
-    </values>
-    <values>
-        <field>Get_Repos_Endpoint__c</field>
-        <value xsi:type="xsd:string">/users/{0}/projects</value>
-    </values>
-    <values>
-        <field>Get_Team_Repos_Endpoint__c</field>
-        <value xsi:type="xsd:string">/groups/{0}/projects</value>
-    </values>
-    <values>
         <field>Named_Credential_Name__c</field>
         <value xsi:type="xsd:string">GitlabAPI</value>
-    </values>
-    <values>
-        <field>Page_Parameter__c</field>
-        <value xsi:type="xsd:string">page</value>
-    </values>
-    <values>
-        <field>Page_Size_Parameter__c</field>
-        <value xsi:type="xsd:string">per_page</value>
     </values>
 </CustomMetadata>
