@@ -4,6 +4,26 @@ global with sharing class GitlabHostingService extends GitHostingService {
     private static final String NEXT_PAGE_LINK_IDENTIFIER = 'rel="next"';
     private static final String PUBLIC_VISIBILITY = 'public';
 
+    global override String getRepoListEndpoint(Boolean isUser, String domain) {
+
+        String placeholder = isUser ?
+                            '/users/{0}/projects' :
+                            '/groups/{0}/projects';
+        
+        return String.format(placeholder, new String[]{domain});
+    }
+
+
+    global override Map<String, String> getRepoListParams(Integer page, Integer pageSize) {
+        return this.getPaginationParams(page, pageSize);
+    }
+
+
+    global override Map<String, String> getRepoListHeaders() {
+        return null;
+    }
+
+
     global override GitRepoListResponseModel parseGetReposRequest(Integer page, Integer pageSize, HTTPResponse res) {
 
         RepoModel[] models = (RepoModel[])JSON.deserialize(res.getBody(), RepoModel[].class);
@@ -29,6 +49,26 @@ global with sharing class GitlabHostingService extends GitHostingService {
         Boolean hasNextPage = String.isNotBlank(links) && links.contains(NEXT_PAGE_LINK_IDENTIFIER);
 
         return new GitRepoListResponseModel(pageSize, page, hasNextPage, data);
+    }
+
+
+    global override String getRepoTreeEndpoint(String ownerPath, String repoPath, String path, String branch) {
+
+        String placeholder = '/projects/{0}%2F{1}/repository/tree?path={2}&ref={3}';
+
+        return String.format(placeholder, new String[]{
+            ownerPath, repoPath, path, branch
+        });
+    }
+
+
+    global override Map<String, String> getRepoTreeParams(Integer page, Integer pageSize) {
+        return this.getPaginationParams(page, pageSize);
+    }
+
+
+    global override Map<String, String> getRepoTreeHeaders() {
+        return null;
     }
 
 
@@ -60,6 +100,14 @@ global with sharing class GitlabHostingService extends GitHostingService {
         return String.isNotBlank(model.message) ? model.message : model.error;
     }
 
+
+    private Map<String, String> getPaginationParams(Integer page, Integer pageSize) {
+        
+        return new Map<String, String>{
+            'page' => String.valueOf(page),
+            'per_page' => String.valueOf(pageSize)
+        };
+    }
 
     /**
      * *******************************

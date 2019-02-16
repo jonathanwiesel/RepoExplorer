@@ -1,5 +1,23 @@
 global with sharing class BitbucketHostingService extends GitHostingService {
     
+    global override String getRepoListEndpoint(Boolean isUser, String domain) {
+
+        String placeholder ='/repositories/{0}';
+        
+        return String.format(placeholder, new String[]{domain});
+    }
+
+
+    global override Map<String, String> getRepoListParams(Integer page, Integer pageSize) {
+        return this.getPaginationParams(page, pageSize);
+    }
+
+
+    global override Map<String, String> getRepoListHeaders() {
+        return null;
+    }
+
+
     global override GitRepoListResponseModel parseGetReposRequest(Integer page, Integer pageSize, HTTPResponse res) {
 
         RepoListModel model = (RepoListModel)JSON.deserialize(res.getBody(), RepoListModel.class);
@@ -25,6 +43,26 @@ global with sharing class BitbucketHostingService extends GitHostingService {
     }
 
 
+    global override String getRepoTreeEndpoint(String ownerPath, String repoPath, String path, String branch) {
+
+        String placeholder = '/repositories/{0}/{1}/src/{2}/{3}';
+
+        return String.format(placeholder, new String[]{
+            ownerPath, repoPath, branch, path
+        });
+    }
+
+
+    global override Map<String, String> getRepoTreeParams(Integer page, Integer pageSize) {
+        return this.getPaginationParams(page, pageSize);
+    }
+
+
+    global override Map<String, String> getRepoTreeHeaders() {
+        return null;
+    }
+
+    
     global override GitRepoTreeResponseModel parseGetFileTreeRequest(Integer page, Integer pageSize, HTTPResponse res) {
         
         FileListModel model = (FileListModel)JSON.deserialize(res.getBody(), FileListModel.class);
@@ -50,6 +88,14 @@ global with sharing class BitbucketHostingService extends GitHostingService {
         return model.error.message;
     }
 
+
+    private Map<String, String> getPaginationParams(Integer page, Integer pageSize) {
+        
+        return new Map<String, String>{
+            'page' => String.valueOf(page),
+            'pagelen' => String.valueOf(pageSize)
+        };
+    }
 
     /**
      * *******************************

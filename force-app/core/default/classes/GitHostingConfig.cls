@@ -39,9 +39,7 @@ global with sharing class GitHostingConfig extends VisualEditor.DynamicPickList 
 
         if (GitHostingConfig.cachedConfig.isEmpty()) {
             
-            for (Git_Hosting_Service__mdt config : [SELECT MasterLabel, Apex_Class__c, Get_Repos_Endpoint__c, Get_Team_Repos_Endpoint__c,
-                                                    Get_File_Tree_Endpoint__c, 
-                                                    Named_Credential_Name__c, Page_Parameter__c, Page_Size_Parameter__c 
+            for (Git_Hosting_Service__mdt config : [SELECT MasterLabel, Apex_Class__c, Named_Credential_Name__c
                                                     FROM Git_Hosting_Service__mdt]) {
                 
                 GitHostingConfig.cachedConfig.put(config.MasterLabel, config);
@@ -79,21 +77,6 @@ global with sharing class GitHostingConfig extends VisualEditor.DynamicPickList 
         instance.serviceName = hostingService;
         
         return instance;
-    }
-
-
-    /**
-     * Obtain additional parameters to send in the request
-     * @param  config   - git hosting configuration object
-     * @param  page     - page number being requested
-     * @param  pageSize - amount of results per page
-     */
-    global static Map<String, String> getPaginationParams(Git_Hosting_Service__mdt config, Integer page, Integer pageSize) {
-
-        return new Map<String, String>{
-            config.Page_Parameter__c => String.valueOf(page),
-            config.Page_Size_Parameter__c => String.valueOf(pageSize)
-        };
     }
 
 

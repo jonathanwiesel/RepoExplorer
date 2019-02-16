@@ -19,10 +19,11 @@ global with sharing class GitHostingRepoTreeRouter {
             Git_Hosting_Service__mdt config = GitHostingConfig.getSpecificGitHost(repo.hostingService);
             GitHostingService service = GitHostingConfig.getServiceInstance(repo.hostingService);
 
-            String endpoint = GitHostingRepoTreeRouter.getFormattedRepoTreeEndpoint(config, repo.ownerPath, repo.path, path, repo.mainBranch);
-            Map<String, String> params = GitHostingConfig.getPaginationParams(config, page, pageSize);
+            String endpoint = service.getRepoTreeEndpoint(repo.ownerPath, repo.path, path, repo.mainBranch);
+            Map<String, String> params = service.getRepoTreeParams(page, pageSize);
+            Map<String, String> headers = service.getRepoTreeHeaders();
 
-            HttpResponse res = CalloutManager.sendRequest(endpoint, 'GET', params, null);
+            HttpResponse res = CalloutManager.sendRequest(config.Named_Credential_Name__c, endpoint, 'GET', params, headers);
 
             responseModel = res.getStatusCode() == 200 ?
                             service.parseGetFileTreeRequest(page, pageSize, res) :
@@ -37,14 +38,5 @@ global with sharing class GitHostingRepoTreeRouter {
         responseModel.tree.sort();
 
         return responseModel;
-    }
-
-
-    private static String getFormattedRepoTreeEndpoint(Git_Hosting_Service__mdt config, String ownerPath, String repoPath, String path, String branch) {
-
-        return CalloutManager.getFormattedEndpoint(
-            config.Named_Credential_Name__c, 
-            String.format(config.Get_File_Tree_Endpoint__c, new String[]{ownerPath, repoPath, path, branch})
-        );
     }
 }

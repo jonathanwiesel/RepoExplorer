@@ -20,10 +20,11 @@ global with sharing class GitHostingRepoListRouter {
             Git_Hosting_Service__mdt config = GitHostingConfig.getSpecificGitHost(hostingService);
             GitHostingService service = GitHostingConfig.getServiceInstance(hostingService);
 
-            String endpoint = GitHostingRepoListRouter.getFormattedRepoListEndpoint(config, isUser, domain);
-            Map<String, String> params = GitHostingConfig.getPaginationParams(config, page, pageSize);
+            String endpoint = service.getRepoListEndpoint(isUser, domain);
+            Map<String, String> params = service.getRepoListParams(page, pageSize);
+            Map<String, String> headers = service.getRepoListHeaders();
 
-            HttpResponse res = CalloutManager.sendRequest(endpoint, 'GET', params, null);
+            HttpResponse res = CalloutManager.sendRequest(config.Named_Credential_Name__c, endpoint, 'GET', params, headers);
 
             responseModel = res.getStatusCode() == 200 ?
                             service.parseGetReposRequest(page, pageSize, res) :
@@ -36,19 +37,5 @@ global with sharing class GitHostingRepoListRouter {
         }
 
         return responseModel;
-    }
-
-    /**
-     * Obtain a formatted repo list endpoint
-     * @param  config - git hosting configuration object
-     * @param  isUser - determines if the domain is from a user or a team
-     * @param  domain - user or team that owns the repos
-     */
-    private static String getFormattedRepoListEndpoint(Git_Hosting_Service__mdt config, Boolean isUser, String domain) {
-        
-        return CalloutManager.getFormattedEndpoint(
-            config.Named_Credential_Name__c, 
-            String.format(isUser ? config.Get_Repos_Endpoint__c : config.Get_Team_Repos_Endpoint__c, new String[]{domain})
-        );
     }
 }

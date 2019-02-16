@@ -2,6 +2,18 @@ global abstract with sharing class GitHostingService {
     
     public String serviceName;
 
+    global abstract String getRepoListEndpoint(Boolean isUser, String domain);
+
+    global abstract Map<String, String> getRepoListParams(Integer page, Integer pageSize);
+
+    global abstract Map<String, String> getRepoListHeaders();
+
+    global abstract String getRepoTreeEndpoint(String ownerPath, String repoPath, String path, String branch);
+
+    global abstract Map<String, String> getRepoTreeParams(Integer page, Integer pageSize);
+
+    global abstract Map<String, String> getRepoTreeHeaders();
+
     /**
      * Parse a success repository fetching request response
      * @param  page     - page asked for

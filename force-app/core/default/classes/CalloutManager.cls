@@ -9,8 +9,10 @@ global inherited sharing class CalloutManager {
      * @param  queryParams - query string paramsters
      * @param  headers     - additional headers
      */
-    global static HTTPResponse sendRequest(String endpoint, String method, Map<String, String> queryParams, Map<String, String> headers) {
+    global static HTTPResponse sendRequest(String namedCredential, String endpoint, String method, Map<String, String> queryParams, Map<String, String> headers) {
         
+        endpoint = CalloutManager.getFormattedEndpoint(namedCredential, endpoint);
+
         HttpRequest req = new HttpRequest();
         req.setEndpoint(endpoint + CalloutManager.getQueryStringParams(endpoint, queryParams));
         req.setMethod(method);
@@ -63,7 +65,7 @@ global inherited sharing class CalloutManager {
      * @param  namedCredential - named credential name
      * @param  endpoint        - partial endpoint
      */
-    public static String getFormattedEndpoint(String namedCredential, String endpoint) {
+    private static String getFormattedEndpoint(String namedCredential, String endpoint) {
 
         return String.format(ENDPOINT_FORMAT, new String[]{namedCredential, endpoint});
     }

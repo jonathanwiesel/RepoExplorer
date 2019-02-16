@@ -2,6 +2,26 @@ global with sharing class GithubHostingService extends GitHostingService {
     
     private static final String LINKS_HEADER_NAME = 'Link';
     private static final String NEXT_PAGE_LINK_IDENTIFIER = 'rel="next"';
+    
+    global override String getRepoListEndpoint(Boolean isUser, String domain) {
+
+        String placeholder = isUser ?
+                            '/users/{0}/repos' :
+                            '/orgs/{0}/repos';
+        
+        return String.format(placeholder, new String[]{domain});
+    }
+
+
+    global override Map<String, String> getRepoListParams(Integer page, Integer pageSize) {
+        return this.getPaginationParams(page, pageSize);
+    }
+
+
+    global override Map<String, String> getRepoListHeaders() {
+        return null;
+    }
+
 
     global override GitRepoListResponseModel parseGetReposRequest(Integer page, Integer pageSize, HTTPResponse res) {
         
@@ -33,6 +53,26 @@ global with sharing class GithubHostingService extends GitHostingService {
 
         return new GitRepoListResponseModel(pageSize, page, hasNextPage, data);
     }
+    
+
+    global override String getRepoTreeEndpoint(String ownerPath, String repoPath, String path, String branch) {
+
+        String placeholder = '/repos/{0}/{1}/contents/{2}?ref={3}';
+
+        return String.format(placeholder, new String[]{
+            ownerPath, repoPath, path, branch
+        });
+    }
+
+
+    global override Map<String, String> getRepoTreeParams(Integer page, Integer pageSize) {
+        return this.getPaginationParams(page, pageSize);
+    }
+
+
+    global override Map<String, String> getRepoTreeHeaders() {
+        return null;
+    }
 
 
     global override GitRepoTreeResponseModel parseGetFileTreeRequest(Integer page, Integer pageSize, HTTPResponse res) {
@@ -60,6 +100,14 @@ global with sharing class GithubHostingService extends GitHostingService {
         return model.message;
     }
 
+
+    private Map<String, String> getPaginationParams(Integer page, Integer pageSize) {
+        
+        return new Map<String, String>{
+            'page' => String.valueOf(page),
+            'per_page' => String.valueOf(pageSize)
+        };
+    }
 
     /**
      * *******************************
