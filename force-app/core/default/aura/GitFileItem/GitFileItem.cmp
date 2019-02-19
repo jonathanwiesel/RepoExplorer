@@ -3,6 +3,9 @@
     <aura:registerEvent name="dirSelected" type="c:GitDirectorySelected"/>
     <aura:registerEvent name="fileSelected" type="c:GitFileSelected"/>
 
+    <aura:dependency resource="markup://c:GitFileRenderer" />
+
+    <aura:attribute name="repository" type="Object" access="global"/>
     <aura:attribute name="file" type="Object" required="true" access="global"/>
     
     <li class="slds-item">
@@ -20,4 +23,7 @@
             </aura:if>
         </lightning:tile>
     </li>
+
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+
 </aura:component>	

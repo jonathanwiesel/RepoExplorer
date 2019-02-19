@@ -16,7 +16,7 @@
 
     <ul class="slds-has-dividers_bottom-space repoList">
         <aura:iteration items="{!v.items}" var="gitFile">
-            <c:GitFileItem file="{!gitFile}" />
+            <c:GitFileItem file="{!gitFile}" repository="{!v.repo}"/>
         </aura:iteration>
     </ul>
 
