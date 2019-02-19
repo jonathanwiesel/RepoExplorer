@@ -1,0 +1,26 @@
+<aura:component implements="flexipage:availableForAllPageTypes" controller="GitHostingFileContentRouter" access="global" >
+    
+    <ltng:require 
+        styles="{!$Resource.highlightjs + '/styles/atom-one-dark.css'}" 
+        scripts="{!$Resource.highlightjs + '/highlight.pack.js'}"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.goFetch}"/>
+
+    <aura:attribute name="repo" type="Object" access="global"/>
+    <aura:attribute name="filePath" type="String" access="global"/>
+
+    <aura:attribute name="rawData" type="String" access="private" />
+
+    <c:AlertLib aura:id="alertLib"/>
+
+    <div aura:id="loadingSpinner" class="slds-hide loadingSpinner">
+        <lightning:spinner size="medium" />
+    </div>
+
+    <div>
+        <pre><code aura:id="highlightme">
+            {!v.rawData}
+        </code></pre>
+    </div>
+    
+</aura:component>
