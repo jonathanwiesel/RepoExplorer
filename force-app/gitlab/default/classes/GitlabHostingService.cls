@@ -83,6 +83,24 @@ global with sharing class GitlabHostingService extends GitHostingService {
     }
 
 
+    global override String getFileContentEndpoint(String ownerPath, String repoPath, String path, String branch) {
+
+        String placeholder = '/projects/{0}%2F{1}/repository/files/{2}/raw?ref={3}';
+
+        String encodedPath = EncodingUtil.urlEncode(path, 'UTF-8');
+
+        return String.format(placeholder, new String[]{
+            ownerPath, repoPath, encodedPath, branch
+        });
+    }    
+    
+
+    global override GitFileContentResponseModel parseGetFileContentRequest(HTTPResponse res) {
+    
+        return new GitFileContentResponseModel(res.getBody(), null);
+    }
+
+
     global override String handleError(HTTPResponse res) {
 
         ErrorModel model = (ErrorModel)JSON.deserialize(res.getBody(), ErrorModel.class);

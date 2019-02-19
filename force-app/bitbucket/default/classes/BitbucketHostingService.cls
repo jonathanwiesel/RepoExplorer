@@ -71,6 +71,22 @@ global with sharing class BitbucketHostingService extends GitHostingService {
     }
 
 
+    global override String getFileContentEndpoint(String ownerPath, String repoPath, String path, String branch) {
+
+        String placeholder = '/repositories/{0}/{1}/src/{2}/{3}';
+
+        return String.format(placeholder, new String[]{
+            ownerPath, repoPath, branch, path
+        });
+    }
+    
+
+    global override GitFileContentResponseModel parseGetFileContentRequest(HTTPResponse res) {
+    
+        return new GitFileContentResponseModel(res.getBody(), null);
+    }
+
+
     global override String handleError(HTTPResponse res) {
 
         ErrorModel model = (ErrorModel)JSON.deserialize(res.getBody(), ErrorModel.class);

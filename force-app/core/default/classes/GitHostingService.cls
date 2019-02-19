@@ -63,6 +63,35 @@ global abstract with sharing class GitHostingService {
     global abstract GitRepoTreeResponseModel parseGetFileTreeRequest(Integer page, Integer pageSize, HTTPResponse res);
 
     /**
+     * Obtin endpoint to get content for the specified file
+     * @param  ownerPath - owner's path
+     * @param  repoPath  - repository path
+     * @param  path      - file path in which the file is included
+     * @param  branch    - branch to obtain files from
+     */
+    global abstract String getFileContentEndpoint(String ownerPath, String repoPath, String path, String branch);
+
+    /**
+     * Obtain additional parameters to include in the request to obtain in file content
+     */
+    global virtual Map<String, String> getFileContentParams() {
+        return null;
+    }
+
+    /**
+     * Obtan additional headers to include in the request to obtain in file content
+     */
+    global virtual Map<String, String> getFileContentHeaders() {
+        return null;
+    }
+
+    /**
+     * Parse a success file content request response
+     * @param  res      - response object
+     */
+    global abstract GitFileContentResponseModel parseGetFileContentRequest(HTTPResponse res);
+
+    /**
      * Handle errors with the API
      * @param  res - response object
      */

@@ -83,6 +83,30 @@ global with sharing class GithubHostingService extends GitHostingService {
     }
 
 
+    global override String getFileContentEndpoint(String ownerPath, String repoPath, String path, String branch) {
+
+        String placeholder = '/repos/{0}/{1}/contents/{2}?ref={3}';
+
+        return String.format(placeholder, new String[]{
+            ownerPath, repoPath, path, branch
+        });
+    }    
+    
+
+    global override Map<String, String> getFileContentHeaders() {
+
+        return new Map<String, String>{
+            'Accept' => 'application/vnd.github.VERSION.raw'
+        };
+    }
+
+
+    global override GitFileContentResponseModel parseGetFileContentRequest(HTTPResponse res) {
+    
+        return new GitFileContentResponseModel(res.getBody(), null);
+    }
+    
+
     global override String handleError(HTTPResponse res) {
 
         ErrorModel model = (ErrorModel)JSON.deserialize(res.getBody(), ErrorModel.class);
