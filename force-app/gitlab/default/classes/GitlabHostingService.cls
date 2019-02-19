@@ -19,11 +19,6 @@ global with sharing class GitlabHostingService extends GitHostingService {
     }
 
 
-    global override Map<String, String> getRepoListHeaders() {
-        return null;
-    }
-
-
     global override GitRepoListResponseModel parseGetReposRequest(Integer page, Integer pageSize, HTTPResponse res) {
 
         RepoModel[] models = (RepoModel[])JSON.deserialize(res.getBody(), RepoModel[].class);
@@ -64,11 +59,6 @@ global with sharing class GitlabHostingService extends GitHostingService {
 
     global override Map<String, String> getRepoTreeParams(Integer page, Integer pageSize) {
         return this.getPaginationParams(page, pageSize);
-    }
-
-
-    global override Map<String, String> getRepoTreeHeaders() {
-        return null;
     }
 
 

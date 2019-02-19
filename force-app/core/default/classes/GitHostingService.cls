@@ -19,7 +19,9 @@ global abstract with sharing class GitHostingService {
     /**
      * Obtan additional headers to include in the request to obtain in list of repositories
      */
-    global abstract Map<String, String> getRepoListHeaders();
+    global virtual Map<String, String> getRepoListHeaders() {
+        return null;
+    }
 
     /**
      * Parse a success repository fetching request response
@@ -48,7 +50,9 @@ global abstract with sharing class GitHostingService {
     /**
      * Obtan additional headers to include in the request to obtain in list of repositories
      */
-    global abstract Map<String, String> getRepoTreeHeaders();
+    global virtual Map<String, String> getRepoTreeHeaders() {
+        return null;
+    }
 
     /**
      * Parse a success file tree fetching request response

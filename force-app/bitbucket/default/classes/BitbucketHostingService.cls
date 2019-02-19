@@ -13,11 +13,6 @@ global with sharing class BitbucketHostingService extends GitHostingService {
     }
 
 
-    global override Map<String, String> getRepoListHeaders() {
-        return null;
-    }
-
-
     global override GitRepoListResponseModel parseGetReposRequest(Integer page, Integer pageSize, HTTPResponse res) {
 
         RepoListModel model = (RepoListModel)JSON.deserialize(res.getBody(), RepoListModel.class);
@@ -58,11 +53,6 @@ global with sharing class BitbucketHostingService extends GitHostingService {
     }
 
 
-    global override Map<String, String> getRepoTreeHeaders() {
-        return null;
-    }
-
-    
     global override GitRepoTreeResponseModel parseGetFileTreeRequest(Integer page, Integer pageSize, HTTPResponse res) {
         
         FileListModel model = (FileListModel)JSON.deserialize(res.getBody(), FileListModel.class);

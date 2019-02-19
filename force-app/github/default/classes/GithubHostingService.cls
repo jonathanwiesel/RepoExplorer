@@ -18,11 +18,6 @@ global with sharing class GithubHostingService extends GitHostingService {
     }
 
 
-    global override Map<String, String> getRepoListHeaders() {
-        return null;
-    }
-
-
     global override GitRepoListResponseModel parseGetReposRequest(Integer page, Integer pageSize, HTTPResponse res) {
         
         String jsonString = res.getBody();
@@ -67,11 +62,6 @@ global with sharing class GithubHostingService extends GitHostingService {
 
     global override Map<String, String> getRepoTreeParams(Integer page, Integer pageSize) {
         return this.getPaginationParams(page, pageSize);
-    }
-
-
-    global override Map<String, String> getRepoTreeHeaders() {
-        return null;
     }
 
 
