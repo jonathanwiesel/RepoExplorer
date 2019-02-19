@@ -29,4 +29,16 @@ public class GitHostingRepoTreeRouterTest {
         System.assertNotEquals(null, file.path);
         System.assertNotEquals(null, file.type);
     }
+
+
+    @isTest static void testInvalidServiceResponse() {
+
+        GitRepoTreeResponseModel res;
+        Test.startTest();
+            res = GitHostingRepoTreeRouter.getFileTree('keyboardcat', 'test', 1, 20);
+        Test.stopTest();
+
+        System.assertNotEquals(null, res.error);
+        System.assertEquals(0, res.tree.size());
+    }
 }
