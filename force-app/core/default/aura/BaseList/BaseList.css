@@ -3,7 +3,8 @@
 }
 
 .THIS .slds-spinner_container {
-    z-index: 10;
+    z-index: 10 !important;
+    margin-top: 20px;
 }
 
 .THIS .inner-box {
