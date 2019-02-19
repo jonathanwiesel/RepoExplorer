@@ -8,13 +8,17 @@ This application comes with out-of-the-box support for repositories hosted on:
 * Bitbucket
 * Gitlab
 
-For now it only supports the following actions:
+For now it  supports the following actions:
 
 * List available repositories for a user / group / team. 
+* Explore file tree of a selected repository.
+* View a specific file's content.
 
 ## Usage
 
-After authenticating your hosting service you should be good to go, so you can just go to the Lightning App Builder and add the `GitRepoList` component to the Lightning Page you want or just invoke it from another Lightning Component of yours.
+After authenticating your hosting service you should be good to go.
+
+You should add the `Repo Explorer` permission set to your user and navigate to the `Repo Explorer` Lightning App to see a demo. You should modify the Lightning Page to change the `GitRepoList` component's attributes to specify what you really want to explore.
 
 
 ## Configuration
