@@ -1,0 +1,15 @@
+<template>
+    <template if:true={visible}>
+        <lightning-layout horizontal-align="spread">
+            <lightning-layout-item>
+                Page {page}
+            </lightning-layout-item>
+            <lightning-layout-item>
+                <lightning-button-group>
+                    <lightning-button label="Previous" disabled={disablePrev} onclick={previousPage}></lightning-button>
+                    <lightning-button label="Next" disabled={disableNext} onclick={nextPage}></lightning-button>
+                </lightning-button-group>
+            </lightning-layout-item>
+        </lightning-layout>
+    </template>
+</template>

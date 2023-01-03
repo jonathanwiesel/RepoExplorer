@@ -1,3 +1,0 @@
-<aura:event type="APPLICATION">
-    <aura:attribute name="repo" type="Object" />
-</aura:event>

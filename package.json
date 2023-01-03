@@ -1,0 +1,10 @@
+{
+    "name": "salesforce-app",
+    "private": true,
+    "version": "1.0.0",
+    "description": "Salesforce App",
+    "devDependencies": {
+        "@salesforce/eslint-config-lwc": "^0.11.0",
+        "eslint": "^7.24.0"
+    }
+}

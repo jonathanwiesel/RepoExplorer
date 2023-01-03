@@ -1,0 +1,31 @@
+<template>
+
+    <h2 class="slds-text-heading_medium slds-var-m-bottom_medium">
+        {owner} repositories on {hostingService}
+    </h2>
+
+    <template if:true={repos.data}>
+        <template for:each={repos.data} for:item="repo">
+            <div class="slds-var-p-around_medium lgc-bg" key={repo.name}>
+                <ul class="slds-has-dividers_bottom-space">
+                    <li class="slds-item">
+                        <lightning-tile label={repo.name} onclick={selectRepo}>
+                            <p class="slds-truncate"><a href={repo.url} target="_blank">{repo.slug}</a></p>
+                            <template if:true={showDescription}>
+                                <p class="slds-truncate">{repo.description}</p>
+                            </template>
+                        </lightning-tile>
+                    </li>
+                </ul>
+            </div>
+        </template>
+
+        <c-list-paginator 
+            is-loading={working} 
+            size={pageSize}
+            has-next={hasNext}
+            has-previous={hasPrev}
+            onpagechanged={updatePage}>
+        </c-list-paginator>
+    </template>
+</template>
